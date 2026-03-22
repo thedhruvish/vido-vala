@@ -1,0 +1,3 @@
+{
+  "extends": "@vido-vala/config/tsconfig.base.json"
+}
