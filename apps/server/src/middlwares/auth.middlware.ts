@@ -3,7 +3,7 @@ import { usersTable } from "@vido-vala/db/schema";
 import { eq } from "drizzle-orm";
 import type { NextFunction, Request, Response } from "express";
 import { ApiError } from "../utils/response-handler";
-import { redis } from "bun";
+import { redis } from "../lib/redis";
 
 export const authMiddleware = async (req: Request, _res: Response, next: NextFunction) => {
   const sessionId = req.signedCookies.sessionId;

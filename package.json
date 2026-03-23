@@ -31,6 +31,7 @@
     "db:studio": "nx run-many -t db:studio --projects=@vido-vala/db",
     "db:generate": "nx run-many -t db:generate --projects=@vido-vala/db",
     "db:migrate": "nx run-many -t db:migrate --projects=@vido-vala/db",
+    "test": "nx run server:test",
     "check": "oxlint && oxfmt --write"
   },
   "dependencies": {
