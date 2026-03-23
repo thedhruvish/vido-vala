@@ -1,3 +1,4 @@
+import { env } from "@vido-vala/env/server";
 import type { Response } from "express";
 
 export class ApiError extends Error {
@@ -39,5 +40,6 @@ export const sendError = (res: Response, error: any) => {
     success: false,
     message,
     errors,
+    stack: env.DEBUG ? error.stack : undefined,
   });
 };
