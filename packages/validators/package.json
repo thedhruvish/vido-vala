@@ -1,0 +1,19 @@
+{
+  "name": "@vido-vala/validators",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@vido-vala/config": "workspace:*",
+    "typescript": "^5"
+  }
+}
