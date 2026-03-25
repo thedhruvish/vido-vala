@@ -1,3 +1,4 @@
+import * as React from "react";
 import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Toaster } from "@vido-vala/ui/components/sonner";
@@ -7,6 +8,16 @@ import Header from "../components/header";
 import appCss from "../index.css?url";
 
 export interface RouterAppContext {}
+
+const SidebarContext = React.createContext<{
+  isOpen: boolean;
+  toggle: () => void;
+}>({
+  isOpen: true,
+  toggle: () => {},
+});
+
+export const useSidebar = () => React.useContext(SidebarContext);
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
@@ -19,7 +30,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "My App",
+        title: "VidoVala",
       },
     ],
     links: [
@@ -34,20 +45,27 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootDocument() {
+  const [isOpen, setIsOpen] = React.useState(true);
+  const toggle = () => setIsOpen((prev) => !prev);
+
   return (
-    <html lang="en" className="dark">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <div className="grid h-svh grid-rows-[auto_1fr]">
-          <Header />
-          <Outlet />
-        </div>
-        <Toaster richColors />
-        <TanStackRouterDevtools position="bottom-left" />
-        <Scripts />
-      </body>
-    </html>
+    <SidebarContext.Provider value={{ isOpen, toggle }}>
+      <html lang="en" className="dark">
+        <head>
+          <HeadContent />
+        </head>
+        <body className="overflow-hidden">
+          <div className="flex h-svh flex-col">
+            <Header />
+            <div className="flex-1 overflow-hidden">
+              <Outlet />
+            </div>
+          </div>
+          <Toaster richColors />
+          <TanStackRouterDevtools position="bottom-left" />
+          <Scripts />
+        </body>
+      </html>
+    </SidebarContext.Provider>
   );
 }

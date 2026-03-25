@@ -8,61 +8,254 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as IndexRouteImport } from "./routes/index";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as WatchLaterRouteImport } from './routes/watch-later'
+import { Route as UploadRouteImport } from './routes/upload'
+import { Route as TrendingRouteImport } from './routes/trending'
+import { Route as SubscriptionsRouteImport } from './routes/subscriptions'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as MyVideosRouteImport } from './routes/my-videos'
+import { Route as LikedRouteImport } from './routes/liked'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as VideoVideoIdRouteImport } from './routes/video.$videoId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+const WatchLaterRoute = WatchLaterRouteImport.update({
+  id: '/watch-later',
+  path: '/watch-later',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
+const UploadRoute = UploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrendingRoute = TrendingRouteImport.update({
+  id: '/trending',
+  path: '/trending',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscriptionsRoute = SubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyVideosRoute = MyVideosRouteImport.update({
+  id: '/my-videos',
+  path: '/my-videos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LikedRoute = LikedRouteImport.update({
+  id: '/liked',
+  path: '/liked',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideoVideoIdRoute = VideoVideoIdRouteImport.update({
+  id: '/video/$videoId',
+  path: '/video/$videoId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/my-videos': typeof MyVideosRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/my-videos': typeof MyVideosRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/my-videos': typeof MyVideosRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/";
-  id: "__root__" | "/";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/my-videos'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/video/$videoId'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/my-videos'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/video/$videoId'
+  id:
+    | '__root__'
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/my-videos'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/video/$videoId'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
+  IndexRoute: typeof IndexRoute
+  HistoryRoute: typeof HistoryRoute
+  LikedRoute: typeof LikedRoute
+  MyVideosRoute: typeof MyVideosRoute
+  SettingsRoute: typeof SettingsRoute
+  SubscriptionsRoute: typeof SubscriptionsRoute
+  TrendingRoute: typeof TrendingRoute
+  UploadRoute: typeof UploadRoute
+  WatchLaterRoute: typeof WatchLaterRoute
+  VideoVideoIdRoute: typeof VideoVideoIdRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/watch-later': {
+      id: '/watch-later'
+      path: '/watch-later'
+      fullPath: '/watch-later'
+      preLoaderRoute: typeof WatchLaterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trending': {
+      id: '/trending'
+      path: '/trending'
+      fullPath: '/trending'
+      preLoaderRoute: typeof TrendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscriptions': {
+      id: '/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof SubscriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-videos': {
+      id: '/my-videos'
+      path: '/my-videos'
+      fullPath: '/my-videos'
+      preLoaderRoute: typeof MyVideosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/liked': {
+      id: '/liked'
+      path: '/liked'
+      fullPath: '/liked'
+      preLoaderRoute: typeof LikedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/video/$videoId': {
+      id: '/video/$videoId'
+      path: '/video/$videoId'
+      fullPath: '/video/$videoId'
+      preLoaderRoute: typeof VideoVideoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-};
+  HistoryRoute: HistoryRoute,
+  LikedRoute: LikedRoute,
+  MyVideosRoute: MyVideosRoute,
+  SettingsRoute: SettingsRoute,
+  SubscriptionsRoute: SubscriptionsRoute,
+  TrendingRoute: TrendingRoute,
+  UploadRoute: UploadRoute,
+  WatchLaterRoute: WatchLaterRoute,
+  VideoVideoIdRoute: VideoVideoIdRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
