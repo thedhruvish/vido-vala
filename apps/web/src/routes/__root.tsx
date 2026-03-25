@@ -1,23 +1,21 @@
 import * as React from "react";
-import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRouteWithContext,
+  useLocation,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Toaster } from "@vido-vala/ui/components/sonner";
 
 import Header from "../components/header";
+import { Sidebar } from "../components/sidebar";
+import { SidebarProvider } from "../hooks/use-sidebar";
 
 import appCss from "../index.css?url";
 
 export interface RouterAppContext {}
-
-const SidebarContext = React.createContext<{
-  isOpen: boolean;
-  toggle: () => void;
-}>({
-  isOpen: true,
-  toggle: () => {},
-});
-
-export const useSidebar = () => React.useContext(SidebarContext);
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
@@ -45,11 +43,11 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootDocument() {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const toggle = () => setIsOpen((prev) => !prev);
+  const { pathname } = useLocation();
+  const isVideoPage = pathname.startsWith("/video/");
 
   return (
-    <SidebarContext.Provider value={{ isOpen, toggle }}>
+    <SidebarProvider>
       <html lang="en" className="dark">
         <head>
           <HeadContent />
@@ -57,8 +55,11 @@ function RootDocument() {
         <body className="overflow-hidden">
           <div className="flex h-svh flex-col">
             <Header />
-            <div className="flex-1 overflow-hidden">
-              <Outlet />
+            <div className="flex flex-1 overflow-hidden">
+              {!isVideoPage && <Sidebar />}
+              <main className="flex-1 overflow-y-auto">
+                <Outlet />
+              </main>
             </div>
           </div>
           <Toaster richColors />
@@ -66,6 +67,6 @@ function RootDocument() {
           <Scripts />
         </body>
       </html>
-    </SidebarContext.Provider>
+    </SidebarProvider>
   );
 }

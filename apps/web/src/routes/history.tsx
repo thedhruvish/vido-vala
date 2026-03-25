@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sidebar } from "../components/sidebar";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Trash2, Pause, Settings } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
@@ -37,38 +36,35 @@ const HISTORY_VIDEOS = [
 
 function HistoryComponent() {
   return (
-    <div className="flex h-full w-full overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto px-4 pb-10">
-        <div className="flex flex-col lg:flex-row gap-8 pt-6 max-w-6xl mx-auto">
-          <div className="flex-1 flex flex-col gap-6">
-            <h1 className="text-3xl font-bold px-4">Watch history</h1>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-bold px-4 mt-4">Today</h2>
-              {HISTORY_VIDEOS.map((video) => (
-                <VideoCard key={video.id} {...video} variant="horizontal" className="px-4" />
-              ))}
-            </div>
-          </div>
-
-          <div className="w-full lg:w-80 flex flex-col gap-4 px-4">
-            <div className="flex flex-col gap-2">
-              <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
-                <Trash2 className="h-5 w-5" />
-                <span>Clear all watch history</span>
-              </Button>
-              <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
-                <Pause className="h-5 w-5" />
-                <span>Pause watch history</span>
-              </Button>
-              <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
-                <Settings className="h-5 w-5" />
-                <span>Manage all history</span>
-              </Button>
-            </div>
+    <div className="px-4 pb-10">
+      <div className="flex flex-col lg:flex-row gap-8 pt-6 max-w-6xl mx-auto">
+        <div className="flex-1 flex flex-col gap-6">
+          <h1 className="text-3xl font-bold px-4">Watch history</h1>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-xl font-bold px-4 mt-4">Today</h2>
+            {HISTORY_VIDEOS.map((video) => (
+              <VideoCard key={video.id} {...video} variant="horizontal" className="px-4" />
+            ))}
           </div>
         </div>
-      </main>
+
+        <div className="w-full lg:w-80 flex flex-col gap-4 px-4">
+          <div className="flex flex-col gap-2">
+            <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
+              <Trash2 className="h-5 w-5" />
+              <span>Clear all watch history</span>
+            </Button>
+            <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
+              <Pause className="h-5 w-5" />
+              <span>Pause watch history</span>
+            </Button>
+            <Button variant="ghost" className="justify-start gap-4 rounded-full px-4 h-11">
+              <Settings className="h-5 w-5" />
+              <span>Manage all history</span>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sidebar } from "../components/sidebar";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Flame } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
@@ -25,39 +24,36 @@ const TRENDING_VIDEOS = [
 
 function TrendingComponent() {
   return (
-    <div className="flex h-full w-full overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto px-4 pb-10">
-        <div className="max-w-6xl mx-auto pt-6">
-          <div className="flex items-center gap-4 px-4 mb-8">
-            <div className="h-16 w-16 flex items-center justify-center rounded-full bg-red-600 text-white">
-              <Flame className="h-8 w-8" />
-            </div>
-            <h1 className="text-3xl font-bold">Trending</h1>
+    <div className="px-4 pb-10">
+      <div className="max-w-6xl mx-auto pt-6">
+        <div className="flex items-center gap-4 px-4 mb-8">
+          <div className="h-16 w-16 flex items-center justify-center rounded-full bg-red-600 text-white">
+            <Flame className="h-8 w-8" />
           </div>
-
-          <div className="flex gap-4 px-4 mb-6 border-b border-muted overflow-x-auto no-scrollbar">
-            <Button variant="ghost" className="border-b-2 border-foreground rounded-none px-4 pb-4">
-              Now
-            </Button>
-            <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
-              Music
-            </Button>
-            <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
-              Gaming
-            </Button>
-            <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
-              Movies
-            </Button>
-          </div>
-
-          <div className="flex flex-col gap-4 mt-6">
-            {TRENDING_VIDEOS.map((video) => (
-              <VideoCard key={video.id} {...video} variant="horizontal" className="px-4" />
-            ))}
-          </div>
+          <h1 className="text-3xl font-bold">Trending</h1>
         </div>
-      </main>
+
+        <div className="flex gap-4 px-4 mb-6 border-b border-muted overflow-x-auto no-scrollbar">
+          <Button variant="ghost" className="border-b-2 border-foreground rounded-none px-4 pb-4">
+            Now
+          </Button>
+          <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
+            Music
+          </Button>
+          <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
+            Gaming
+          </Button>
+          <Button variant="ghost" className="rounded-none px-4 pb-4 text-muted-foreground">
+            Movies
+          </Button>
+        </div>
+
+        <div className="flex flex-col gap-4 mt-6">
+          {TRENDING_VIDEOS.map((video) => (
+            <VideoCard key={video.id} {...video} variant="horizontal" className="px-4" />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sidebar } from "../components/sidebar";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Button } from "@vido-vala/ui/components/button";
 
@@ -95,37 +94,34 @@ const DUMMY_VIDEOS = [
 
 function HomeComponent() {
   return (
-    <div className="flex h-full w-full overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto px-4 pb-10">
-        <div className="sticky top-0 z-40 bg-background py-3">
-          <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-            {CATEGORIES.map((category) => (
-              <Button
-                key={category}
-                variant={category === "All" ? "default" : "secondary"}
-                size="sm"
-                className="whitespace-nowrap rounded-lg px-3 py-1 font-medium"
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
+    <div className="px-4 pb-10">
+      <div className="sticky top-0 z-40 bg-background py-3">
+        <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+          {CATEGORIES.map((category) => (
+            <Button
+              key={category}
+              variant={category === "All" ? "default" : "secondary"}
+              size="sm"
+              className="whitespace-nowrap rounded-lg px-3 py-1 font-medium"
+            >
+              {category}
+            </Button>
+          ))}
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 gap-x-4 gap-y-8 pt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {DUMMY_VIDEOS.map((video) => (
-            <VideoCard key={video.id} {...video} />
-          ))}
-          {/* Duplicate to fill the grid */}
-          {DUMMY_VIDEOS.map((video) => (
-            <VideoCard key={video.id + "-copy"} {...video} />
-          ))}
-          {DUMMY_VIDEOS.map((video) => (
-            <VideoCard key={video.id + "-copy-2"} {...video} />
-          ))}
-        </div>
-      </main>
+      <div className="grid grid-cols-1 gap-x-4 gap-y-8 pt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        {DUMMY_VIDEOS.map((video) => (
+          <VideoCard key={video.id} {...video} />
+        ))}
+        {/* Duplicate to fill the grid */}
+        {DUMMY_VIDEOS.map((video) => (
+          <VideoCard key={video.id + "-copy"} {...video} />
+        ))}
+        {DUMMY_VIDEOS.map((video) => (
+          <VideoCard key={video.id + "-copy-2"} {...video} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Search, Bell, Video, User, Menu, Mic } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 import { Input } from "@vido-vala/ui/components/input";
-import { useSidebar } from "../routes/__root";
+import { useSidebar } from "../hooks/use-sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,

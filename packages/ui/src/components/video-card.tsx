@@ -1,5 +1,7 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
+import { MoreVertical } from "lucide-react";
+import { Button } from "./button";
 
 interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   thumbnail: string;
@@ -28,10 +30,10 @@ export function VideoCard({
   href,
   ...props
 }: VideoCardProps) {
-  const content = (
-    <>
+  return (
+    <div className={cn("group relative cursor-pointer", className)} {...props}>
       {variant === "horizontal" ? (
-        <div className={cn("group flex cursor-pointer gap-4", className)} {...props}>
+        <div className="flex gap-4">
           <div className="relative aspect-video w-64 shrink-0 overflow-hidden rounded-xl bg-muted">
             <img
               src={thumbnail}
@@ -44,7 +46,7 @@ export function VideoCard({
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-1 py-1">
+          <div className="flex flex-1 flex-col gap-1 py-1 pr-8">
             <h3 className="line-clamp-2 text-lg font-semibold leading-tight text-foreground transition-colors group-hover:text-primary">
               {title}
             </h3>
@@ -67,7 +69,7 @@ export function VideoCard({
           </div>
         </div>
       ) : (
-        <div className={cn("group flex cursor-pointer flex-col gap-3", className)} {...props}>
+        <div className="flex flex-col gap-3">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-muted">
             <img
               src={thumbnail}
@@ -80,7 +82,7 @@ export function VideoCard({
               </div>
             )}
           </div>
-          <div className="flex gap-3 px-1">
+          <div className="flex gap-3 px-1 pr-8">
             {authorAvatar && (
               <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-muted">
                 <img src={authorAvatar} alt={author} className="h-full w-full object-cover" />
@@ -100,8 +102,11 @@ export function VideoCard({
           </div>
         </div>
       )}
-    </>
+      <div className="absolute right-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
+          <MoreVertical className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
   );
-
-  return content;
 }

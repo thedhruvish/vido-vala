@@ -35,7 +35,7 @@ function VideoComponent() {
   const { videoId } = Route.useParams();
 
   return (
-    <div className="flex h-full w-full flex-col lg:flex-row gap-6 p-4 lg:p-6 overflow-y-auto">
+    <div className="flex h-full w-full flex-col lg:flex-row gap-6 p-4 lg:p-6">
       <div className="flex-1">
         {/* Video Player Placeholder */}
         <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
