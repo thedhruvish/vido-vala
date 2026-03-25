@@ -8,13 +8,21 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuHeader,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@vido-vala/ui/components/dropdown-menu";
 
 const notifications = [
-  { id: 1, text: "New video from VidoVala Dev: 'How to build an app'", time: "2 hours ago" },
-  { id: 2, text: "Someone liked your comment on 'Tailwind CSS'", time: "5 hours ago" },
+  {
+    id: 1,
+    text: "New video from VidoVala Dev: 'How to build an app'",
+    time: "2 hours ago",
+  },
+  {
+    id: 2,
+    text: "Someone liked your comment on 'Tailwind CSS'",
+    time: "5 hours ago",
+  },
   { id: 3, text: "New subscriber: CodeWizard!", time: "1 day ago" },
   { id: 4, text: "Weekly analytics are ready to view.", time: "2 days ago" },
 ];
@@ -73,13 +81,15 @@ export default function Header() {
         </Link>
 
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full">
-              <Bell className="h-5 w-5" />
+          <DropdownMenuTrigger>
+            <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full" asChild>
+              <button type="button">
+                <Bell className="h-5 w-5" />
+              </button>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-80">
-            <DropdownMenuHeader className="font-bold p-3">Notifications</DropdownMenuHeader>
+            <DropdownMenuLabel className="font-bold p-3 text-base">Notifications</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <div className="max-h-[400px] overflow-y-auto no-scrollbar">
               {notifications.map((n) => (

@@ -1,12 +1,6 @@
-import {
-  createFileRoute,
-  Outlet,
-  Link,
-  Search,
-  Share2,
-  MoreHorizontal,
-} from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link } from "@tanstack/react-router";
 import { Button } from "@vido-vala/ui/components/button";
+import { Search, Share2, MoreHorizontal } from "lucide-react";
 
 export const Route = createFileRoute("/user/$username")({
   component: UserLayout,

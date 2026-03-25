@@ -22,6 +22,7 @@ import { Route as VideoVideoIdRouteImport } from "./routes/video.$videoId";
 import { Route as UserUsernameRouteImport } from "./routes/user.$username";
 import { Route as UserUsernameIndexRouteImport } from "./routes/user.$username.index";
 import { Route as UserUsernameVideosRouteImport } from "./routes/user.$username.videos";
+import { Route as UserUsernameAboutRouteImport } from "./routes/user.$username.about";
 
 const WatchLaterRoute = WatchLaterRouteImport.update({
   id: "/watch-later",
@@ -88,6 +89,11 @@ const UserUsernameVideosRoute = UserUsernameVideosRouteImport.update({
   path: "/videos",
   getParentRoute: () => UserUsernameRoute,
 } as any);
+const UserUsernameAboutRoute = UserUsernameAboutRouteImport.update({
+  id: "/about",
+  path: "/about",
+  getParentRoute: () => UserUsernameRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   "/watch-later": typeof WatchLaterRoute;
   "/user/$username": typeof UserUsernameRouteWithChildren;
   "/video/$videoId": typeof VideoVideoIdRoute;
+  "/user/$username/about": typeof UserUsernameAboutRoute;
   "/user/$username/videos": typeof UserUsernameVideosRoute;
   "/user/$username/": typeof UserUsernameIndexRoute;
 }
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   "/upload": typeof UploadRoute;
   "/watch-later": typeof WatchLaterRoute;
   "/video/$videoId": typeof VideoVideoIdRoute;
+  "/user/$username/about": typeof UserUsernameAboutRoute;
   "/user/$username/videos": typeof UserUsernameVideosRoute;
   "/user/$username": typeof UserUsernameIndexRoute;
 }
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   "/watch-later": typeof WatchLaterRoute;
   "/user/$username": typeof UserUsernameRouteWithChildren;
   "/video/$videoId": typeof VideoVideoIdRoute;
+  "/user/$username/about": typeof UserUsernameAboutRoute;
   "/user/$username/videos": typeof UserUsernameVideosRoute;
   "/user/$username/": typeof UserUsernameIndexRoute;
 }
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | "/watch-later"
     | "/user/$username"
     | "/video/$videoId"
+    | "/user/$username/about"
     | "/user/$username/videos"
     | "/user/$username/";
   fileRoutesByTo: FileRoutesByTo;
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | "/upload"
     | "/watch-later"
     | "/video/$videoId"
+    | "/user/$username/about"
     | "/user/$username/videos"
     | "/user/$username";
   id:
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | "/watch-later"
     | "/user/$username"
     | "/video/$videoId"
+    | "/user/$username/about"
     | "/user/$username/videos"
     | "/user/$username/";
   fileRoutesById: FileRoutesById;
@@ -288,15 +300,24 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof UserUsernameVideosRouteImport;
       parentRoute: typeof UserUsernameRoute;
     };
+    "/user/$username/about": {
+      id: "/user/$username/about";
+      path: "/about";
+      fullPath: "/user/$username/about";
+      preLoaderRoute: typeof UserUsernameAboutRouteImport;
+      parentRoute: typeof UserUsernameRoute;
+    };
   }
 }
 
 interface UserUsernameRouteChildren {
+  UserUsernameAboutRoute: typeof UserUsernameAboutRoute;
   UserUsernameVideosRoute: typeof UserUsernameVideosRoute;
   UserUsernameIndexRoute: typeof UserUsernameIndexRoute;
 }
 
 const UserUsernameRouteChildren: UserUsernameRouteChildren = {
+  UserUsernameAboutRoute: UserUsernameAboutRoute,
   UserUsernameVideosRoute: UserUsernameVideosRoute,
   UserUsernameIndexRoute: UserUsernameIndexRoute,
 };
