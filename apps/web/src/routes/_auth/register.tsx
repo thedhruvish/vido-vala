@@ -14,6 +14,7 @@ import {
 } from "@vido-vala/ui/components/card";
 import { Field, FieldLabel, FieldError, FieldContent } from "@vido-vala/ui/components/field";
 import { z } from "zod";
+import { useRegisterMutation, useGoogleLoginMutation } from "@/api/auth-api";
 
 export const Route = createFileRoute("/_auth/register")({
   component: RegisterComponent,
@@ -22,6 +23,9 @@ export const Route = createFileRoute("/_auth/register")({
 type RegisterFormValues = z.infer<typeof registerValidator>;
 
 function RegisterComponent() {
+  const registerMutation = useRegisterMutation();
+  const googleLoginMutation = useGoogleLoginMutation();
+
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerValidator),
     defaultValues: {
@@ -31,18 +35,16 @@ function RegisterComponent() {
     },
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
-    // Handle registration
+  const onSubmit = async (data: RegisterFormValues) => {
+    registerMutation.mutate(data);
   };
 
-  const handleGoogleSuccess = (response: any) => {
-    console.log("Google registration success:", response);
-    // Handle Google registration
+  const handleGoogleSuccess = async (response: any) => {
+    googleLoginMutation.mutate(response.credential);
   };
 
   const handleGoogleError = () => {
-    console.log("Google registration error");
+    console.error("Google registration error");
   };
 
   return (
@@ -116,9 +118,9 @@ function RegisterComponent() {
             <Button
               type="submit"
               className="w-full rounded-lg h-10 font-semibold"
-              disabled={form.formState.isSubmitting}
+              disabled={registerMutation.isPending}
             >
-              {form.formState.isSubmitting ? "Creating account..." : "Register"}
+              {registerMutation.isPending ? "Creating account..." : "Register"}
             </Button>
           </form>
         </div>

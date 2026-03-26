@@ -14,6 +14,7 @@ import {
 } from "@vido-vala/ui/components/card";
 import { Field, FieldLabel, FieldError, FieldContent } from "@vido-vala/ui/components/field";
 import { z } from "zod";
+import { useLoginMutation, useGoogleLoginMutation } from "@/api/auth-api";
 
 export const Route = createFileRoute("/_auth/login")({
   component: LoginComponent,
@@ -22,6 +23,9 @@ export const Route = createFileRoute("/_auth/login")({
 type LoginFormValues = z.infer<typeof loginValidator>;
 
 function LoginComponent() {
+  const loginMutation = useLoginMutation();
+  const googleLoginMutation = useGoogleLoginMutation();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginValidator),
     defaultValues: {
@@ -30,18 +34,16 @@ function LoginComponent() {
     },
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
-    // Handle login
+  const onSubmit = async (data: LoginFormValues) => {
+    loginMutation.mutate(data);
   };
 
-  const handleGoogleSuccess = (response: any) => {
-    console.log("Google login success:", response);
-    // Handle Google login
+  const handleGoogleSuccess = async (response: any) => {
+    googleLoginMutation.mutate(response.credential);
   };
 
   const handleGoogleError = () => {
-    console.log("Google login error");
+    console.error("Google login error");
   };
 
   return (
@@ -102,9 +104,9 @@ function LoginComponent() {
             <Button
               type="submit"
               className="w-full rounded-lg h-10 font-semibold"
-              disabled={form.formState.isSubmitting}
+              disabled={loginMutation.isPending}
             >
-              {form.formState.isSubmitting ? "Logging in..." : "Login"}
+              {loginMutation.isPending ? "Logging in..." : "Login"}
             </Button>
           </form>
         </div>

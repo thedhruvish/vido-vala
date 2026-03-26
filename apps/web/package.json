@@ -19,6 +19,7 @@
     "@vido-vala/env": "workspace:*",
     "@vido-vala/ui": "workspace:*",
     "@vido-vala/validators": "workspace:*",
+    "axios": "^1.13.6",
     "dotenv": "catalog:",
     "lucide-react": "catalog:",
     "next-themes": "catalog:",
