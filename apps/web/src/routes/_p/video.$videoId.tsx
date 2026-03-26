@@ -13,9 +13,13 @@ export const Route = createFileRoute("/_p/video/$videoId")({
 
 function VideoComponent() {
   const { videoId } = Route.useParams();
-  const { data: video, isPending: isVideoPending, error: videoError } = useVideoByIdQuery(videoId);
-  const { data: comments, isPending: isCommentsPending } = useCommentsByVideoIdQuery(videoId);
-  const { data: recommendedVideos } = useVideosQuery();
+  const {
+    data: videoData,
+    isPending: isVideoPending,
+    error: videoError,
+  } = useVideoByIdQuery(videoId);
+  const { data: commentData, isPending: isCommentsPending } = useCommentsByVideoIdQuery(videoId);
+  const { data: recommendedVideosData } = useVideosQuery();
   const addCommentMutation = useAddCommentMutation();
   const [commentText, setCommentText] = useState("");
 
@@ -27,7 +31,7 @@ function VideoComponent() {
     );
   }
 
-  if (videoError || !video) {
+  if (videoError || !videoData.video) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-4 text-destructive">
         <p className="font-medium text-lg text-foreground">Video not found.</p>
@@ -54,10 +58,10 @@ function VideoComponent() {
       <div className="flex-1">
         {/* Video Player Placeholder */}
         <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
-          {video.thumbnail ? (
+          {videoData.video.thumbnail ? (
             <img
-              src={video.thumbnail}
-              alt={video.title}
+              src={videoData.video.thumbnail}
+              alt={videoData.video.title}
               className="w-full h-full object-cover opacity-50"
             />
           ) : (
@@ -69,19 +73,21 @@ function VideoComponent() {
 
         {/* Video Info */}
         <div className="mt-4 flex flex-col gap-4">
-          <h1 className="text-xl font-bold line-clamp-2">{video.title}</h1>
+          <h1 className="text-xl font-bold line-clamp-2">{videoData.video.title}</h1>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
                 <img
-                  src={video.user?.picture || "https://github.com/shadcn.png"}
-                  alt={video.user?.name || "Channel"}
+                  src={videoData.video.user?.picture || "https://github.com/shadcn.png"}
+                  alt={videoData.video.user?.name || "Channel"}
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm">{video.user?.name || "Anonymous"}</span>
+                <span className="font-semibold text-sm">
+                  {videoData.video.user?.name || "Anonymous"}
+                </span>
                 <span className="text-xs text-muted-foreground">1.2M subscribers</span>
               </div>
               <Button variant="default" size="sm" className="ml-2 rounded-full px-4">
@@ -93,7 +99,7 @@ function VideoComponent() {
               <div className="flex items-center bg-muted rounded-full">
                 <Button variant="ghost" size="sm" className="rounded-l-full gap-2 px-3 border-r">
                   <ThumbsUp className="h-4 w-4" />
-                  <span>124K</span>
+                  <span>{videoData.video.like}</span>
                 </Button>
                 <Button variant="ghost" size="sm" className="rounded-r-full px-3">
                   <ThumbsDown className="h-4 w-4" />
@@ -119,14 +125,14 @@ function VideoComponent() {
               <span>Just now</span>
             </div>
             <p className="mt-1 whitespace-pre-wrap">
-              {video.description || "No description provided."}
+              {videoData.video.description || "No description provided."}
             </p>
           </div>
         </div>
 
         {/* Comments Section */}
         <div className="mt-6">
-          <h3 className="text-lg font-bold">{comments?.length || 0} Comments</h3>
+          <h3 className="text-lg font-bold">{commentData?.comments?.length || 0} Comments</h3>
           <div className="mt-4 flex gap-4">
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
               <img
@@ -164,7 +170,7 @@ function VideoComponent() {
                 <Loader />
               </div>
             ) : (
-              comments?.map((comment: any) => (
+              commentData?.comments?.map((comment: any) => (
                 <div key={comment.id} className="flex gap-4">
                   <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
                     <img
@@ -196,7 +202,7 @@ function VideoComponent() {
       </div>
 
       <div className="w-full lg:w-96 flex flex-col gap-4 overflow-y-auto">
-        {recommendedVideos
+        {recommendedVideosData.videos
           ?.filter((v: any) => String(v.id) !== videoId)
           .map((v: any) => (
             <VideoCard
