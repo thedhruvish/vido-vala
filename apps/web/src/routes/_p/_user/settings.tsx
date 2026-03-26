@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { User } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
+import { useMeQuery } from "@/api/users-api";
+import Loader from "@/components/loader";
 
 export const Route = createFileRoute("/_p/_user/settings")({
   component: SettingsComponent,
@@ -9,6 +11,24 @@ export const Route = createFileRoute("/_p/_user/settings")({
 const SETTINGS_MENU = [{ icon: User, label: "Account" }];
 
 function SettingsComponent() {
+  const { data: user, isPending, error } = useMeQuery();
+
+  if (isPending) {
+    return (
+      <div className="flex h-[50vh] items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error || !user) {
+    return (
+      <div className="flex h-[50vh] flex-col items-center justify-center gap-4 text-destructive">
+        <p className="font-medium">Failed to load account settings.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 pb-10">
       <div className="max-w-4xl mx-auto pt-6">
@@ -20,7 +40,7 @@ function SettingsComponent() {
               <Button
                 key={item.label}
                 variant="ghost"
-                className="justify-start gap-4 rounded-lg px-4 h-11 font-medium"
+                className="justify-start gap-4 rounded-lg px-4 h-11 font-medium text-foreground"
               >
                 <item.icon className="h-5 w-5" />
                 <span>{item.label}</span>
@@ -44,13 +64,16 @@ function SettingsComponent() {
                 <div className="flex items-center gap-4 py-2">
                   <div className="h-20 w-20 rounded-full bg-muted overflow-hidden">
                     <img
-                      src="https://github.com/shadcn.png"
+                      src={user.picture || "https://github.com/shadcn.png"}
                       alt="Avatar"
                       className="h-full w-full object-cover"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="font-bold text-lg">VidoVala User</span>
+                    <span className="font-bold text-lg">{user.name}</span>
+                    <span className="text-sm text-muted-foreground">
+                      @{user.userName || user.id}
+                    </span>
                     <Button variant="link" className="p-0 h-auto justify-start text-blue-500">
                       Edit on Google
                     </Button>

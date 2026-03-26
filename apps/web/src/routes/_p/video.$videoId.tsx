@@ -2,65 +2,86 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
+import { useVideoByIdQuery, useVideosQuery } from "@/api/videos-api";
+import { useCommentsByVideoIdQuery, useAddCommentMutation } from "@/api/comments-api";
+import Loader from "@/components/loader";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_p/video/$videoId")({
   component: VideoComponent,
 });
 
-const RECOMMENDED_VIDEOS = [
-  {
-    id: "1",
-    thumbnail:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60",
-    title: "Mastering React and TanStack Router in 2024",
-    author: "VidoVala Dev",
-    views: "1.2M views",
-    postedAt: "2 days ago",
-    duration: "15:45",
-  },
-  {
-    id: "2",
-    thumbnail:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60",
-    title: "The Ultimate Guide to Drizzle ORM",
-    author: "Code Master",
-    views: "450K views",
-    postedAt: "1 week ago",
-    duration: "22:10",
-  },
-  // Add more as needed
-];
-
 function VideoComponent() {
   const { videoId } = Route.useParams();
+  const { data: video, isPending: isVideoPending, error: videoError } = useVideoByIdQuery(videoId);
+  const { data: comments, isPending: isCommentsPending } = useCommentsByVideoIdQuery(videoId);
+  const { data: recommendedVideos } = useVideosQuery();
+  const addCommentMutation = useAddCommentMutation();
+  const [commentText, setCommentText] = useState("");
+
+  if (isVideoPending) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (videoError || !video) {
+    return (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-4 text-destructive">
+        <p className="font-medium text-lg text-foreground">Video not found.</p>
+        <p>This video might have been removed or is unavailable.</p>
+      </div>
+    );
+  }
+
+  const handleCommentSubmit = () => {
+    if (!commentText.trim()) return;
+    addCommentMutation.mutate(
+      {
+        videoId: Number(videoId),
+        content: commentText,
+      },
+      {
+        onSuccess: () => setCommentText(""),
+      },
+    );
+  };
 
   return (
-    <div className="flex h-full w-full flex-col lg:flex-row gap-6 p-4 lg:p-6">
+    <div className="flex h-full w-full flex-col lg:flex-row gap-6 p-4 lg:p-6 overflow-y-auto">
       <div className="flex-1">
         {/* Video Player Placeholder */}
         <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
-          <div className="flex h-full items-center justify-center text-white">
-            Video Player {videoId}
-          </div>
+          {video.thumbnail ? (
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              className="w-full h-full object-cover opacity-50"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-white">
+              Video Player {videoId}
+            </div>
+          )}
         </div>
 
         {/* Video Info */}
         <div className="mt-4 flex flex-col gap-4">
-          <h1 className="text-xl font-bold line-clamp-2">
-            Mastering Full-stack Development with VidoVala Mono-repo
-          </h1>
+          <h1 className="text-xl font-bold line-clamp-2">{video.title}</h1>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
                 <img
-                  src="https://github.com/shadcn.png"
-                  alt="Channel"
+                  src={video.user?.picture || "https://github.com/shadcn.png"}
+                  alt={video.user?.name || "Channel"}
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm">VidoVala Official</span>
+                <span className="font-semibold text-sm">{video.user?.name || "Anonymous"}</span>
                 <span className="text-xs text-muted-foreground">1.2M subscribers</span>
               </div>
               <Button variant="default" size="sm" className="ml-2 rounded-full px-4">
@@ -94,27 +115,18 @@ function VideoComponent() {
 
           <div className="rounded-xl bg-muted p-3 text-sm">
             <div className="flex gap-2 font-semibold">
-              <span>1.2M views</span>
-              <span>2 days ago</span>
+              <span>0 views</span>
+              <span>Just now</span>
             </div>
-            <p className="mt-1 line-clamp-3">
-              This is a comprehensive guide to building a modern video platform from scratch. We'll
-              cover everything from mono-repo setup with NX to backend with Drizzle and Express, and
-              frontend with TanStack Router and Tailwind CSS.
+            <p className="mt-1 whitespace-pre-wrap">
+              {video.description || "No description provided."}
             </p>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-0 mt-1 h-auto font-semibold hover:bg-transparent"
-            >
-              Show more
-            </Button>
           </div>
         </div>
 
-        {/* Comments Section Placeholder */}
+        {/* Comments Section */}
         <div className="mt-6">
-          <h3 className="text-lg font-bold">1.2K Comments</h3>
+          <h3 className="text-lg font-bold">{comments?.length || 0} Comments</h3>
           <div className="mt-4 flex gap-4">
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
               <img
@@ -127,34 +139,86 @@ function VideoComponent() {
               <input
                 placeholder="Add a comment..."
                 className="w-full bg-transparent border-b border-muted py-1 focus:outline-none focus:border-foreground"
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
               />
               <div className="flex justify-end gap-2">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" onClick={() => setCommentText("")}>
                   Cancel
                 </Button>
-                <Button variant="secondary" size="sm" disabled>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={!commentText.trim() || addCommentMutation.isPending}
+                  onClick={handleCommentSubmit}
+                >
                   Comment
                 </Button>
               </div>
             </div>
           </div>
+
+          <div className="mt-8 flex flex-col gap-6">
+            {isCommentsPending ? (
+              <div className="flex justify-center py-4">
+                <Loader />
+              </div>
+            ) : (
+              comments?.map((comment: any) => (
+                <div key={comment.id} className="flex gap-4">
+                  <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
+                    <img
+                      src={comment.user?.picture || "https://github.com/shadcn.png"}
+                      alt={comment.user?.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold">{comment.user?.name}</span>
+                      <span className="text-xs text-muted-foreground">Just now</span>
+                    </div>
+                    <p className="text-sm">{comment.content}</p>
+                    <div className="flex items-center gap-4 mt-1">
+                      <div className="flex items-center gap-1">
+                        <ThumbsUp className="h-3.5 w-3.5" />
+                        <span className="text-xs">0</span>
+                      </div>
+                      <ThumbsDown className="h-3.5 w-3.5" />
+                      <span className="text-xs font-bold cursor-pointer">Reply</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="w-full lg:w-96 flex flex-col gap-4">
-        {RECOMMENDED_VIDEOS.map((video) => (
-          <VideoCard
-            key={video.id}
-            thumbnail={video.thumbnail}
-            title={video.title}
-            author={video.author}
-            views={video.views}
-            postedAt={video.postedAt}
-            duration={video.duration}
-            variant="vertical" // Still vertical but will be smaller
-            className="flex-row gap-2" // Hack for now to make it look like small cards
-          />
-        ))}
+      <div className="w-full lg:w-96 flex flex-col gap-4 overflow-y-auto">
+        {recommendedVideos
+          ?.filter((v: any) => String(v.id) !== videoId)
+          .map((v: any) => (
+            <VideoCard
+              key={v.id}
+              id={String(v.id)}
+              thumbnail={
+                v.thumbnail ||
+                "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60"
+              }
+              title={v.title}
+              author={v.user?.name || "Anonymous"}
+              views="0 views"
+              postedAt="Recently"
+              duration={
+                v.seconds
+                  ? `${Math.floor(v.seconds / 60)}:${String(v.seconds % 60).padStart(2, "0")}`
+                  : "00:00"
+              }
+              variant="vertical"
+              className="flex-row gap-2"
+            />
+          ))}
       </div>
     </div>
   );

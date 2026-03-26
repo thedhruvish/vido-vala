@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Button } from "@vido-vala/ui/components/button";
+import { useVideosQuery } from "@/api/videos-api";
+import Loader from "@/components/loader";
 
 export const Route = createFileRoute("/_p/")({
   component: HomeComponent,
@@ -23,76 +25,26 @@ const CATEGORIES = [
   "News",
 ];
 
-const DUMMY_VIDEOS = [
-  {
-    id: "1",
-    thumbnail:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60",
-    title: "Mastering React and TanStack Router in 2024",
-    author: "VidoVala Dev",
-    views: "1.2M views",
-    postedAt: "2 days ago",
-    duration: "15:45",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-  {
-    id: "2",
-    thumbnail:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60",
-    title: "The Ultimate Guide to Drizzle ORM with PostgreSQL",
-    author: "Code Master",
-    views: "450K views",
-    postedAt: "1 week ago",
-    duration: "22:10",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-  {
-    id: "3",
-    thumbnail:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=60",
-    title: "Why You Should Use Tailwind CSS for Everything",
-    author: "Design Pros",
-    views: "890K views",
-    postedAt: "3 weeks ago",
-    duration: "10:30",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-  {
-    id: "4",
-    thumbnail:
-      "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&auto=format&fit=crop&q=60",
-    title: "Building a Full-stack YouTube Clone with Mono-repo",
-    author: "Web Wizards",
-    views: "2.1M views",
-    postedAt: "1 month ago",
-    duration: "1:45:20",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-  {
-    id: "5",
-    thumbnail:
-      "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=800&auto=format&fit=crop&q=60",
-    title: "The Future of Web Development is Serverless",
-    author: "Tech Insider",
-    views: "156K views",
-    postedAt: "5 hours ago",
-    duration: "12:15",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-  {
-    id: "6",
-    thumbnail:
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=60",
-    title: "Top 10 VS Code Extensions You Need in 2024",
-    author: "Dev Tools",
-    views: "2M views",
-    postedAt: "2 months ago",
-    duration: "08:50",
-    authorAvatar: "https://github.com/shadcn.png",
-  },
-];
-
 function HomeComponent() {
+  const { data: videos, isPending, error } = useVideosQuery();
+
+  if (isPending) {
+    return (
+      <div className="flex h-[50vh] items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-[50vh] flex-col items-center justify-center gap-4">
+        <p className="text-destructive font-medium">Failed to load videos.</p>
+        <Button onClick={() => window.location.reload()}>Retry</Button>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 pb-10">
       <div className="sticky top-0 z-40 bg-background py-3">
@@ -111,16 +63,31 @@ function HomeComponent() {
       </div>
 
       <div className="grid grid-cols-1 gap-x-4 gap-y-8 pt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {DUMMY_VIDEOS.map((video) => (
-          <VideoCard key={video.id} {...video} />
+        {videos?.map((video: any) => (
+          <VideoCard
+            key={video.id}
+            id={String(video.id)}
+            thumbnail={
+              video.thumbnail ||
+              "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60"
+            }
+            title={video.title}
+            author={video.user?.name || "Anonymous"}
+            views="0 views"
+            postedAt="Just now"
+            duration={
+              video.seconds
+                ? `${Math.floor(video.seconds / 60)}:${String(video.seconds % 60).padStart(2, "0")}`
+                : "00:00"
+            }
+            authorAvatar={video.user?.picture || "https://github.com/shadcn.png"}
+          />
         ))}
-        {/* Duplicate to fill the grid */}
-        {DUMMY_VIDEOS.map((video) => (
-          <VideoCard key={video.id + "-copy"} {...video} />
-        ))}
-        {DUMMY_VIDEOS.map((video) => (
-          <VideoCard key={video.id + "-copy-2"} {...video} />
-        ))}
+        {videos?.length === 0 && (
+          <div className="col-span-full flex flex-col items-center justify-center py-20 text-muted-foreground">
+            <p className="text-xl font-semibold">No videos found.</p>
+          </div>
+        )}
       </div>
     </div>
   );

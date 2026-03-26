@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { SidebarProvider } from "../hooks/use-sidebar";
 
 import appCss from "../index.css?url";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export interface RouterAppContext {}
 
@@ -34,23 +35,27 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootDocument,
 });
 
+const queryClient = new QueryClient();
+
 function RootDocument() {
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
       <SidebarProvider>
-        <html lang="en" className="dark">
-          <head>
-            <HeadContent />
-          </head>
-          <body className="overflow-hidden">
-            <div className="flex h-svh flex-col">
-              <Outlet />
-            </div>
-            <Toaster richColors />
-            <TanStackRouterDevtools position="bottom-left" />
-            <Scripts />
-          </body>
-        </html>
+        <QueryClientProvider client={queryClient}>
+          <html lang="en" className="dark">
+            <head>
+              <HeadContent />
+            </head>
+            <body className="overflow-hidden">
+              <div className="flex h-svh flex-col">
+                <Outlet />
+              </div>
+              <Toaster richColors />
+              <TanStackRouterDevtools position="bottom-left" />
+              <Scripts />
+            </body>
+          </html>
+        </QueryClientProvider>
       </SidebarProvider>
     </GoogleOAuthProvider>
   );

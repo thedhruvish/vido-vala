@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
+  DropdownMenuGroup,
 } from "@vido-vala/ui/components/dropdown-menu";
 
 const notifications = [
@@ -81,27 +81,32 @@ export default function Header() {
         </Link>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full" asChild>
-              <button type="button">
+          <DropdownMenuTrigger
+            render={
+              <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full">
                 <Bell className="h-5 w-5" />
-              </button>
-            </Button>
+              </Button>
+            }
+          >
+            Open
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
-            <DropdownMenuLabel className="font-bold p-3 text-base">Notifications</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <div className="max-h-[400px] overflow-y-auto no-scrollbar">
-              {notifications.map((n) => (
-                <DropdownMenuItem
-                  key={n.id}
-                  className="flex flex-col items-start gap-1 p-3 cursor-pointer"
-                >
-                  <span className="text-sm line-clamp-2">{n.text}</span>
-                  <span className="text-xs text-muted-foreground">{n.time}</span>
-                </DropdownMenuItem>
-              ))}
-            </div>
+          <DropdownMenuContent className={"w-75"}>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="font-bold p-3 text-base">
+                Notifications
+              </DropdownMenuLabel>
+              <div className="max-h-100  overflow-y-auto no-scrollbar">
+                {notifications.map((n) => (
+                  <DropdownMenuItem
+                    key={n.id}
+                    className="flex flex-col items-start gap-1 p-3 cursor-pointer"
+                  >
+                    <span className="text-sm line-clamp-2">{n.text}</span>
+                    <span className="text-xs text-muted-foreground">{n.time}</span>
+                  </DropdownMenuItem>
+                ))}
+              </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
 

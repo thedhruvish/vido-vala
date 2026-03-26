@@ -8,385 +8,387 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as PRouteRouteImport } from "./routes/_p/route";
-import { Route as AuthRouteRouteImport } from "./routes/_auth/route";
-import { Route as PIndexRouteImport } from "./routes/_p/index";
-import { Route as AuthRegisterRouteImport } from "./routes/_auth/register";
-import { Route as AuthLoginRouteImport } from "./routes/_auth/login";
-import { Route as PVideoVideoIdRouteImport } from "./routes/_p/video.$videoId";
-import { Route as PUserUsernameRouteImport } from "./routes/_p/user.$username";
-import { Route as PUserWatchLaterRouteImport } from "./routes/_p/_user/watch-later";
-import { Route as PUserUploadRouteImport } from "./routes/_p/_user/upload";
-import { Route as PUserTrendingRouteImport } from "./routes/_p/_user/trending";
-import { Route as PUserSubscriptionsRouteImport } from "./routes/_p/_user/subscriptions";
-import { Route as PUserSettingsRouteImport } from "./routes/_p/_user/settings";
-import { Route as PUserLikedRouteImport } from "./routes/_p/_user/liked";
-import { Route as PUserHistoryRouteImport } from "./routes/_p/_user/history";
-import { Route as PUserUsernameIndexRouteImport } from "./routes/_p/user.$username.index";
-import { Route as PUserUsernameVideosRouteImport } from "./routes/_p/user.$username.videos";
-import { Route as PUserUsernameAboutRouteImport } from "./routes/_p/user.$username.about";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as PRouteRouteImport } from './routes/_p/route'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as PIndexRouteImport } from './routes/_p/index'
+import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as PVideoVideoIdRouteImport } from './routes/_p/video.$videoId'
+import { Route as PUserUsernameRouteImport } from './routes/_p/user.$username'
+import { Route as PUserWatchLaterRouteImport } from './routes/_p/_user/watch-later'
+import { Route as PUserUploadRouteImport } from './routes/_p/_user/upload'
+import { Route as PUserTrendingRouteImport } from './routes/_p/_user/trending'
+import { Route as PUserSubscriptionsRouteImport } from './routes/_p/_user/subscriptions'
+import { Route as PUserSettingsRouteImport } from './routes/_p/_user/settings'
+import { Route as PUserLikedRouteImport } from './routes/_p/_user/liked'
+import { Route as PUserHistoryRouteImport } from './routes/_p/_user/history'
+import { Route as PUserUsernameIndexRouteImport } from './routes/_p/user.$username.index'
+import { Route as PUserUsernameVideosRouteImport } from './routes/_p/user.$username.videos'
+import { Route as PUserUsernameAboutRouteImport } from './routes/_p/user.$username.about'
 
 const PRouteRoute = PRouteRouteImport.update({
-  id: "/_p",
+  id: '/_p',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: "/_auth",
+  id: '/_auth',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const PIndexRoute = PIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: "/register",
-  path: "/register",
+  id: '/register',
+  path: '/register',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+  id: '/login',
+  path: '/login',
   getParentRoute: () => AuthRouteRoute,
-} as any);
+} as any)
 const PVideoVideoIdRoute = PVideoVideoIdRouteImport.update({
-  id: "/video/$videoId",
-  path: "/video/$videoId",
+  id: '/video/$videoId',
+  path: '/video/$videoId',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserUsernameRoute = PUserUsernameRouteImport.update({
-  id: "/user/$username",
-  path: "/user/$username",
+  id: '/user/$username',
+  path: '/user/$username',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserWatchLaterRoute = PUserWatchLaterRouteImport.update({
-  id: "/_user/watch-later",
-  path: "/watch-later",
+  id: '/_user/watch-later',
+  path: '/watch-later',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserUploadRoute = PUserUploadRouteImport.update({
-  id: "/_user/upload",
-  path: "/upload",
+  id: '/_user/upload',
+  path: '/upload',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserTrendingRoute = PUserTrendingRouteImport.update({
-  id: "/_user/trending",
-  path: "/trending",
+  id: '/_user/trending',
+  path: '/trending',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserSubscriptionsRoute = PUserSubscriptionsRouteImport.update({
-  id: "/_user/subscriptions",
-  path: "/subscriptions",
+  id: '/_user/subscriptions',
+  path: '/subscriptions',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserSettingsRoute = PUserSettingsRouteImport.update({
-  id: "/_user/settings",
-  path: "/settings",
+  id: '/_user/settings',
+  path: '/settings',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserLikedRoute = PUserLikedRouteImport.update({
-  id: "/_user/liked",
-  path: "/liked",
+  id: '/_user/liked',
+  path: '/liked',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserHistoryRoute = PUserHistoryRouteImport.update({
-  id: "/_user/history",
-  path: "/history",
+  id: '/_user/history',
+  path: '/history',
   getParentRoute: () => PRouteRoute,
-} as any);
+} as any)
 const PUserUsernameIndexRoute = PUserUsernameIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => PUserUsernameRoute,
-} as any);
+} as any)
 const PUserUsernameVideosRoute = PUserUsernameVideosRouteImport.update({
-  id: "/videos",
-  path: "/videos",
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => PUserUsernameRoute,
-} as any);
+} as any)
 const PUserUsernameAboutRoute = PUserUsernameAboutRouteImport.update({
-  id: "/about",
-  path: "/about",
+  id: '/about',
+  path: '/about',
   getParentRoute: () => PUserUsernameRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof PIndexRoute;
-  "/login": typeof AuthLoginRoute;
-  "/register": typeof AuthRegisterRoute;
-  "/history": typeof PUserHistoryRoute;
-  "/liked": typeof PUserLikedRoute;
-  "/settings": typeof PUserSettingsRoute;
-  "/subscriptions": typeof PUserSubscriptionsRoute;
-  "/trending": typeof PUserTrendingRoute;
-  "/upload": typeof PUserUploadRoute;
-  "/watch-later": typeof PUserWatchLaterRoute;
-  "/user/$username": typeof PUserUsernameRouteWithChildren;
-  "/video/$videoId": typeof PVideoVideoIdRoute;
-  "/user/$username/about": typeof PUserUsernameAboutRoute;
-  "/user/$username/videos": typeof PUserUsernameVideosRoute;
-  "/user/$username/": typeof PUserUsernameIndexRoute;
+  '/': typeof PIndexRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/history': typeof PUserHistoryRoute
+  '/liked': typeof PUserLikedRoute
+  '/settings': typeof PUserSettingsRoute
+  '/subscriptions': typeof PUserSubscriptionsRoute
+  '/trending': typeof PUserTrendingRoute
+  '/upload': typeof PUserUploadRoute
+  '/watch-later': typeof PUserWatchLaterRoute
+  '/user/$username': typeof PUserUsernameRouteWithChildren
+  '/video/$videoId': typeof PVideoVideoIdRoute
+  '/user/$username/about': typeof PUserUsernameAboutRoute
+  '/user/$username/videos': typeof PUserUsernameVideosRoute
+  '/user/$username/': typeof PUserUsernameIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof PIndexRoute;
-  "/login": typeof AuthLoginRoute;
-  "/register": typeof AuthRegisterRoute;
-  "/history": typeof PUserHistoryRoute;
-  "/liked": typeof PUserLikedRoute;
-  "/settings": typeof PUserSettingsRoute;
-  "/subscriptions": typeof PUserSubscriptionsRoute;
-  "/trending": typeof PUserTrendingRoute;
-  "/upload": typeof PUserUploadRoute;
-  "/watch-later": typeof PUserWatchLaterRoute;
-  "/video/$videoId": typeof PVideoVideoIdRoute;
-  "/user/$username/about": typeof PUserUsernameAboutRoute;
-  "/user/$username/videos": typeof PUserUsernameVideosRoute;
-  "/user/$username": typeof PUserUsernameIndexRoute;
+  '/': typeof PIndexRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/history': typeof PUserHistoryRoute
+  '/liked': typeof PUserLikedRoute
+  '/settings': typeof PUserSettingsRoute
+  '/subscriptions': typeof PUserSubscriptionsRoute
+  '/trending': typeof PUserTrendingRoute
+  '/upload': typeof PUserUploadRoute
+  '/watch-later': typeof PUserWatchLaterRoute
+  '/video/$videoId': typeof PVideoVideoIdRoute
+  '/user/$username/about': typeof PUserUsernameAboutRoute
+  '/user/$username/videos': typeof PUserUsernameVideosRoute
+  '/user/$username': typeof PUserUsernameIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/_auth": typeof AuthRouteRouteWithChildren;
-  "/_p": typeof PRouteRouteWithChildren;
-  "/_auth/login": typeof AuthLoginRoute;
-  "/_auth/register": typeof AuthRegisterRoute;
-  "/_p/": typeof PIndexRoute;
-  "/_p/_user/history": typeof PUserHistoryRoute;
-  "/_p/_user/liked": typeof PUserLikedRoute;
-  "/_p/_user/settings": typeof PUserSettingsRoute;
-  "/_p/_user/subscriptions": typeof PUserSubscriptionsRoute;
-  "/_p/_user/trending": typeof PUserTrendingRoute;
-  "/_p/_user/upload": typeof PUserUploadRoute;
-  "/_p/_user/watch-later": typeof PUserWatchLaterRoute;
-  "/_p/user/$username": typeof PUserUsernameRouteWithChildren;
-  "/_p/video/$videoId": typeof PVideoVideoIdRoute;
-  "/_p/user/$username/about": typeof PUserUsernameAboutRoute;
-  "/_p/user/$username/videos": typeof PUserUsernameVideosRoute;
-  "/_p/user/$username/": typeof PUserUsernameIndexRoute;
+  __root__: typeof rootRouteImport
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_p': typeof PRouteRouteWithChildren
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/register': typeof AuthRegisterRoute
+  '/_p/': typeof PIndexRoute
+  '/_p/_user/history': typeof PUserHistoryRoute
+  '/_p/_user/liked': typeof PUserLikedRoute
+  '/_p/_user/settings': typeof PUserSettingsRoute
+  '/_p/_user/subscriptions': typeof PUserSubscriptionsRoute
+  '/_p/_user/trending': typeof PUserTrendingRoute
+  '/_p/_user/upload': typeof PUserUploadRoute
+  '/_p/_user/watch-later': typeof PUserWatchLaterRoute
+  '/_p/user/$username': typeof PUserUsernameRouteWithChildren
+  '/_p/video/$videoId': typeof PVideoVideoIdRoute
+  '/_p/user/$username/about': typeof PUserUsernameAboutRoute
+  '/_p/user/$username/videos': typeof PUserUsernameVideosRoute
+  '/_p/user/$username/': typeof PUserUsernameIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/login"
-    | "/register"
-    | "/history"
-    | "/liked"
-    | "/settings"
-    | "/subscriptions"
-    | "/trending"
-    | "/upload"
-    | "/watch-later"
-    | "/user/$username"
-    | "/video/$videoId"
-    | "/user/$username/about"
-    | "/user/$username/videos"
-    | "/user/$username/";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/login'
+    | '/register'
+    | '/history'
+    | '/liked'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/user/$username'
+    | '/video/$videoId'
+    | '/user/$username/about'
+    | '/user/$username/videos'
+    | '/user/$username/'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/login"
-    | "/register"
-    | "/history"
-    | "/liked"
-    | "/settings"
-    | "/subscriptions"
-    | "/trending"
-    | "/upload"
-    | "/watch-later"
-    | "/video/$videoId"
-    | "/user/$username/about"
-    | "/user/$username/videos"
-    | "/user/$username";
+    | '/'
+    | '/login'
+    | '/register'
+    | '/history'
+    | '/liked'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/video/$videoId'
+    | '/user/$username/about'
+    | '/user/$username/videos'
+    | '/user/$username'
   id:
-    | "__root__"
-    | "/_auth"
-    | "/_p"
-    | "/_auth/login"
-    | "/_auth/register"
-    | "/_p/"
-    | "/_p/_user/history"
-    | "/_p/_user/liked"
-    | "/_p/_user/settings"
-    | "/_p/_user/subscriptions"
-    | "/_p/_user/trending"
-    | "/_p/_user/upload"
-    | "/_p/_user/watch-later"
-    | "/_p/user/$username"
-    | "/_p/video/$videoId"
-    | "/_p/user/$username/about"
-    | "/_p/user/$username/videos"
-    | "/_p/user/$username/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/_auth'
+    | '/_p'
+    | '/_auth/login'
+    | '/_auth/register'
+    | '/_p/'
+    | '/_p/_user/history'
+    | '/_p/_user/liked'
+    | '/_p/_user/settings'
+    | '/_p/_user/subscriptions'
+    | '/_p/_user/trending'
+    | '/_p/_user/upload'
+    | '/_p/_user/watch-later'
+    | '/_p/user/$username'
+    | '/_p/video/$videoId'
+    | '/_p/user/$username/about'
+    | '/_p/user/$username/videos'
+    | '/_p/user/$username/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
-  PRouteRoute: typeof PRouteRouteWithChildren;
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  PRouteRoute: typeof PRouteRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/_p": {
-      id: "/_p";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof PRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_auth": {
-      id: "/_auth";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof AuthRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_p/": {
-      id: "/_p/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof PIndexRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_auth/register": {
-      id: "/_auth/register";
-      path: "/register";
-      fullPath: "/register";
-      preLoaderRoute: typeof AuthRegisterRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_auth/login": {
-      id: "/_auth/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof AuthLoginRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/_p/video/$videoId": {
-      id: "/_p/video/$videoId";
-      path: "/video/$videoId";
-      fullPath: "/video/$videoId";
-      preLoaderRoute: typeof PVideoVideoIdRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/user/$username": {
-      id: "/_p/user/$username";
-      path: "/user/$username";
-      fullPath: "/user/$username";
-      preLoaderRoute: typeof PUserUsernameRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/watch-later": {
-      id: "/_p/_user/watch-later";
-      path: "/watch-later";
-      fullPath: "/watch-later";
-      preLoaderRoute: typeof PUserWatchLaterRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/upload": {
-      id: "/_p/_user/upload";
-      path: "/upload";
-      fullPath: "/upload";
-      preLoaderRoute: typeof PUserUploadRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/trending": {
-      id: "/_p/_user/trending";
-      path: "/trending";
-      fullPath: "/trending";
-      preLoaderRoute: typeof PUserTrendingRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/subscriptions": {
-      id: "/_p/_user/subscriptions";
-      path: "/subscriptions";
-      fullPath: "/subscriptions";
-      preLoaderRoute: typeof PUserSubscriptionsRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/settings": {
-      id: "/_p/_user/settings";
-      path: "/settings";
-      fullPath: "/settings";
-      preLoaderRoute: typeof PUserSettingsRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/liked": {
-      id: "/_p/_user/liked";
-      path: "/liked";
-      fullPath: "/liked";
-      preLoaderRoute: typeof PUserLikedRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/_user/history": {
-      id: "/_p/_user/history";
-      path: "/history";
-      fullPath: "/history";
-      preLoaderRoute: typeof PUserHistoryRouteImport;
-      parentRoute: typeof PRouteRoute;
-    };
-    "/_p/user/$username/": {
-      id: "/_p/user/$username/";
-      path: "/";
-      fullPath: "/user/$username/";
-      preLoaderRoute: typeof PUserUsernameIndexRouteImport;
-      parentRoute: typeof PUserUsernameRoute;
-    };
-    "/_p/user/$username/videos": {
-      id: "/_p/user/$username/videos";
-      path: "/videos";
-      fullPath: "/user/$username/videos";
-      preLoaderRoute: typeof PUserUsernameVideosRouteImport;
-      parentRoute: typeof PUserUsernameRoute;
-    };
-    "/_p/user/$username/about": {
-      id: "/_p/user/$username/about";
-      path: "/about";
-      fullPath: "/user/$username/about";
-      preLoaderRoute: typeof PUserUsernameAboutRouteImport;
-      parentRoute: typeof PUserUsernameRoute;
-    };
+    '/_p': {
+      id: '/_p'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_p/': {
+      id: '/_p/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PIndexRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_auth/register': {
+      id: '/_auth/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_p/video/$videoId': {
+      id: '/_p/video/$videoId'
+      path: '/video/$videoId'
+      fullPath: '/video/$videoId'
+      preLoaderRoute: typeof PVideoVideoIdRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/user/$username': {
+      id: '/_p/user/$username'
+      path: '/user/$username'
+      fullPath: '/user/$username'
+      preLoaderRoute: typeof PUserUsernameRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/watch-later': {
+      id: '/_p/_user/watch-later'
+      path: '/watch-later'
+      fullPath: '/watch-later'
+      preLoaderRoute: typeof PUserWatchLaterRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/upload': {
+      id: '/_p/_user/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof PUserUploadRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/trending': {
+      id: '/_p/_user/trending'
+      path: '/trending'
+      fullPath: '/trending'
+      preLoaderRoute: typeof PUserTrendingRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/subscriptions': {
+      id: '/_p/_user/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof PUserSubscriptionsRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/settings': {
+      id: '/_p/_user/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof PUserSettingsRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/liked': {
+      id: '/_p/_user/liked'
+      path: '/liked'
+      fullPath: '/liked'
+      preLoaderRoute: typeof PUserLikedRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/_user/history': {
+      id: '/_p/_user/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof PUserHistoryRouteImport
+      parentRoute: typeof PRouteRoute
+    }
+    '/_p/user/$username/': {
+      id: '/_p/user/$username/'
+      path: '/'
+      fullPath: '/user/$username/'
+      preLoaderRoute: typeof PUserUsernameIndexRouteImport
+      parentRoute: typeof PUserUsernameRoute
+    }
+    '/_p/user/$username/videos': {
+      id: '/_p/user/$username/videos'
+      path: '/videos'
+      fullPath: '/user/$username/videos'
+      preLoaderRoute: typeof PUserUsernameVideosRouteImport
+      parentRoute: typeof PUserUsernameRoute
+    }
+    '/_p/user/$username/about': {
+      id: '/_p/user/$username/about'
+      path: '/about'
+      fullPath: '/user/$username/about'
+      preLoaderRoute: typeof PUserUsernameAboutRouteImport
+      parentRoute: typeof PUserUsernameRoute
+    }
   }
 }
 
 interface AuthRouteRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute;
-  AuthRegisterRoute: typeof AuthRegisterRoute;
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
-};
+}
 
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(AuthRouteRouteChildren);
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
 
 interface PUserUsernameRouteChildren {
-  PUserUsernameAboutRoute: typeof PUserUsernameAboutRoute;
-  PUserUsernameVideosRoute: typeof PUserUsernameVideosRoute;
-  PUserUsernameIndexRoute: typeof PUserUsernameIndexRoute;
+  PUserUsernameAboutRoute: typeof PUserUsernameAboutRoute
+  PUserUsernameVideosRoute: typeof PUserUsernameVideosRoute
+  PUserUsernameIndexRoute: typeof PUserUsernameIndexRoute
 }
 
 const PUserUsernameRouteChildren: PUserUsernameRouteChildren = {
   PUserUsernameAboutRoute: PUserUsernameAboutRoute,
   PUserUsernameVideosRoute: PUserUsernameVideosRoute,
   PUserUsernameIndexRoute: PUserUsernameIndexRoute,
-};
+}
 
 const PUserUsernameRouteWithChildren = PUserUsernameRoute._addFileChildren(
   PUserUsernameRouteChildren,
-);
+)
 
 interface PRouteRouteChildren {
-  PIndexRoute: typeof PIndexRoute;
-  PUserHistoryRoute: typeof PUserHistoryRoute;
-  PUserLikedRoute: typeof PUserLikedRoute;
-  PUserSettingsRoute: typeof PUserSettingsRoute;
-  PUserSubscriptionsRoute: typeof PUserSubscriptionsRoute;
-  PUserTrendingRoute: typeof PUserTrendingRoute;
-  PUserUploadRoute: typeof PUserUploadRoute;
-  PUserWatchLaterRoute: typeof PUserWatchLaterRoute;
-  PUserUsernameRoute: typeof PUserUsernameRouteWithChildren;
-  PVideoVideoIdRoute: typeof PVideoVideoIdRoute;
+  PIndexRoute: typeof PIndexRoute
+  PUserHistoryRoute: typeof PUserHistoryRoute
+  PUserLikedRoute: typeof PUserLikedRoute
+  PUserSettingsRoute: typeof PUserSettingsRoute
+  PUserSubscriptionsRoute: typeof PUserSubscriptionsRoute
+  PUserTrendingRoute: typeof PUserTrendingRoute
+  PUserUploadRoute: typeof PUserUploadRoute
+  PUserWatchLaterRoute: typeof PUserWatchLaterRoute
+  PUserUsernameRoute: typeof PUserUsernameRouteWithChildren
+  PVideoVideoIdRoute: typeof PVideoVideoIdRoute
 }
 
 const PRouteRouteChildren: PRouteRouteChildren = {
@@ -400,23 +402,24 @@ const PRouteRouteChildren: PRouteRouteChildren = {
   PUserWatchLaterRoute: PUserWatchLaterRoute,
   PUserUsernameRoute: PUserUsernameRouteWithChildren,
   PVideoVideoIdRoute: PVideoVideoIdRoute,
-};
+}
 
-const PRouteRouteWithChildren = PRouteRoute._addFileChildren(PRouteRouteChildren);
+const PRouteRouteWithChildren =
+  PRouteRoute._addFileChildren(PRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   PRouteRoute: PRouteRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
