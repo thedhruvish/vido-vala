@@ -3,7 +3,7 @@ import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from "lucide-r
 import { Button } from "@vido-vala/ui/components/button";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 
-export const Route = createFileRoute("/video/$videoId")({
+export const Route = createFileRoute("/_p/video/$videoId")({
   component: VideoComponent,
 });
 

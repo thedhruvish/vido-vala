@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@vido-vala/ui/components/button";
 import { Share2 } from "lucide-react";
 
-export const Route = createFileRoute("/user/$username/about")({
+export const Route = createFileRoute("/_p/user/$username/about")({
   component: UserAboutComponent,
 });
 

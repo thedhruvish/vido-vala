@@ -3,7 +3,7 @@ import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Flame } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 
-export const Route = createFileRoute("/trending")({
+export const Route = createFileRoute("/_p/_user/trending")({
   component: TrendingComponent,
 });
 

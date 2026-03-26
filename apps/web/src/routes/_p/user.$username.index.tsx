@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 
-export const Route = createFileRoute("/user/$username/")({
+export const Route = createFileRoute("/_p/user/$username/")({
   component: UserHomeComponent,
 });
 

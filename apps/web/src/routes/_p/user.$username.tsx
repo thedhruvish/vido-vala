@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link } from "@tanstack/react-router";
 import { Button } from "@vido-vala/ui/components/button";
 import { Search, Share2, MoreHorizontal } from "lucide-react";
 
-export const Route = createFileRoute("/user/$username")({
+export const Route = createFileRoute("/_p/user/$username")({
   component: UserLayout,
 });
 

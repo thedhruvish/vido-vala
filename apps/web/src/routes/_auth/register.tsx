@@ -1,0 +1,134 @@
+import { GoogleLogin } from "@react-oauth/google";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerValidator } from "@vido-vala/validators/auth";
+import { Button } from "@vido-vala/ui/components/button";
+import { Input } from "@vido-vala/ui/components/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@vido-vala/ui/components/card";
+import { Field, FieldLabel, FieldError, FieldContent } from "@vido-vala/ui/components/field";
+import { z } from "zod";
+
+export const Route = createFileRoute("/_auth/register")({
+  component: RegisterComponent,
+});
+
+type RegisterFormValues = z.infer<typeof registerValidator>;
+
+function RegisterComponent() {
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerValidator),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: RegisterFormValues) => {
+    console.log(data);
+    // Handle registration
+  };
+
+  const handleGoogleSuccess = (response: any) => {
+    console.log("Google registration success:", response);
+    // Handle Google registration
+  };
+
+  const handleGoogleError = () => {
+    console.log("Google registration error");
+  };
+
+  return (
+    <Card className="rounded-xl shadow-lg border-muted/50">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardDescription>Enter your information below to create your account</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              theme="filled_black"
+              shape="pill"
+              width="100%"
+            />
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <Field>
+              <FieldLabel htmlFor="name">Name</FieldLabel>
+              <FieldContent>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  className="rounded-lg h-10"
+                  {...form.register("name")}
+                />
+                <FieldError errors={[form.formState.errors.name]} />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <FieldContent>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  className="rounded-lg h-10"
+                  {...form.register("email")}
+                />
+                <FieldError errors={[form.formState.errors.email]} />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="password">Password</FieldLabel>
+              <FieldContent>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  className="rounded-lg h-10"
+                  {...form.register("password")}
+                />
+                <FieldError errors={[form.formState.errors.password]} />
+              </FieldContent>
+            </Field>
+            <Button
+              type="submit"
+              className="w-full rounded-lg h-10 font-semibold"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Creating account..." : "Register"}
+            </Button>
+          </form>
+        </div>
+        <div className="mt-6 text-center text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="underline font-medium">
+            Login
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

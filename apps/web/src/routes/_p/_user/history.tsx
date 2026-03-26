@@ -3,7 +3,7 @@ import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Trash2, Pause, Settings } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_p/_user/history")({
   component: HistoryComponent,
 });
 

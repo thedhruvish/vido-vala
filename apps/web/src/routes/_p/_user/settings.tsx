@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { User } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 
-export const Route = createFileRoute("/settings")({
+export const Route = createFileRoute("/_p/_user/settings")({
   component: SettingsComponent,
 });
 

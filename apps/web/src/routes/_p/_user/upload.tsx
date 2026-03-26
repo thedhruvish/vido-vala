@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Upload as UploadIcon, X } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 
-export const Route = createFileRoute("/upload")({
+export const Route = createFileRoute("/_p/_user/upload")({
   component: UploadComponent,
 });
 

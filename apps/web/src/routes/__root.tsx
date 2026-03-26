@@ -1,16 +1,8 @@
-import * as React from "react";
-import {
-  HeadContent,
-  Outlet,
-  Scripts,
-  createRootRouteWithContext,
-  useLocation,
-} from "@tanstack/react-router";
+import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Toaster } from "@vido-vala/ui/components/sonner";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-import Header from "../components/header";
-import { Sidebar } from "../components/sidebar";
 import { SidebarProvider } from "../hooks/use-sidebar";
 
 import appCss from "../index.css?url";
@@ -43,30 +35,23 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootDocument() {
-  const { pathname } = useLocation();
-  const isVideoPage = pathname.startsWith("/video/");
-
   return (
-    <SidebarProvider>
-      <html lang="en" className="dark">
-        <head>
-          <HeadContent />
-        </head>
-        <body className="overflow-hidden">
-          <div className="flex h-svh flex-col">
-            <Header />
-            <div className="flex flex-1 overflow-hidden">
-              {!isVideoPage && <Sidebar />}
-              <main className="flex-1 overflow-y-auto">
-                <Outlet />
-              </main>
+    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+      <SidebarProvider>
+        <html lang="en" className="dark">
+          <head>
+            <HeadContent />
+          </head>
+          <body className="overflow-hidden">
+            <div className="flex h-svh flex-col">
+              <Outlet />
             </div>
-          </div>
-          <Toaster richColors />
-          <TanStackRouterDevtools position="bottom-left" />
-          <Scripts />
-        </body>
-      </html>
-    </SidebarProvider>
+            <Toaster richColors />
+            <TanStackRouterDevtools position="bottom-left" />
+            <Scripts />
+          </body>
+        </html>
+      </SidebarProvider>
+    </GoogleOAuthProvider>
   );
 }

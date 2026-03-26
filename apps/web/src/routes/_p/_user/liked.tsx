@@ -1,53 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock } from "lucide-react";
+import { ThumbsUp } from "lucide-react";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { Button } from "@vido-vala/ui/components/button";
 
-export const Route = createFileRoute("/watch-later")({
-  component: WatchLaterComponent,
+export const Route = createFileRoute("/_p/_user/liked")({
+  component: LikedComponent,
 });
 
-const WATCH_LATER_VIDEOS = [
+const LIKED_VIDEOS = [
   {
-    id: "1",
+    id: "3",
     thumbnail:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60",
-    title: "Mastering React and TanStack Router in 2024",
-    author: "VidoVala Dev",
-    views: "1.2M views",
-    postedAt: "2 days ago",
-    duration: "15:45",
-    description: "Learn how to build powerful applications with React and TanStack Router.",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=60",
+    title: "Why You Should Use Tailwind CSS for Everything",
+    author: "Design Pros",
+    views: "890K views",
+    postedAt: "3 weeks ago",
+    duration: "10:30",
+    description: "Tailwind CSS makes building modern websites faster and easier.",
     authorAvatar: "https://github.com/shadcn.png",
   },
   {
-    id: "2",
+    id: "4",
     thumbnail:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60",
-    title: "The Ultimate Guide to Drizzle ORM with PostgreSQL",
-    author: "Code Master",
-    views: "450K views",
-    postedAt: "1 week ago",
-    duration: "22:10",
-    description: "Master database migrations and queries with Drizzle ORM.",
+      "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&auto=format&fit=crop&q=60",
+    title: "Building a Full-stack YouTube Clone with Mono-repo",
+    author: "Web Wizards",
+    views: "2.1M views",
+    postedAt: "1 month ago",
+    duration: "1:45:20",
+    description: "Learn how to architect a large-scale application using a mono-repo.",
     authorAvatar: "https://github.com/shadcn.png",
   },
 ];
 
-function WatchLaterComponent() {
-  const isEmpty = WATCH_LATER_VIDEOS.length === 0;
+function LikedComponent() {
+  const isEmpty = LIKED_VIDEOS.length === 0;
 
   return (
     <div className="px-4 pb-10">
       <div className="max-w-6xl mx-auto pt-6">
         <div className="flex items-center gap-4 px-4 mb-8">
           <div className="h-16 w-16 flex items-center justify-center rounded-full bg-muted text-muted-foreground">
-            <Clock className="h-8 w-8" />
+            <ThumbsUp className="h-8 w-8" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-3xl font-bold">Watch Later</h1>
+            <h1 className="text-3xl font-bold">Liked videos</h1>
             <p className="text-muted-foreground text-sm">
-              {WATCH_LATER_VIDEOS.length} videos • Updated today
+              {LIKED_VIDEOS.length} videos • Updated today
             </p>
           </div>
         </div>
@@ -62,11 +62,11 @@ function WatchLaterComponent() {
         <div className="flex flex-col gap-4 mt-6">
           {isEmpty ? (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <Clock className="h-20 w-20 text-muted-foreground" />
-              <h2 className="text-2xl font-bold">Your watch later list is empty.</h2>
+              <ThumbsUp className="h-20 w-20 text-muted-foreground" />
+              <h2 className="text-2xl font-bold">You haven't liked any videos yet.</h2>
             </div>
           ) : (
-            WATCH_LATER_VIDEOS.map((video) => (
+            LIKED_VIDEOS.map((video) => (
               <VideoCard key={video.id} {...video} variant="horizontal" className="px-4" />
             ))
           )}
