@@ -32,10 +32,10 @@ app.get("/", (_req, res) => {
 app.use("/api/auth", authRoute);
 
 // Protected routes - Applied directly here
-app.use(authMiddleware);
-app.use("/api/users", usersRoute);
 app.use("/api/videos", videosRoute);
 app.use("/api/comments", commentsRoute);
+app.use(authMiddleware);
+app.use("/api/users", usersRoute);
 app.use("/api/watch-histories", watchHistoriesRoute);
 
 // Global Error Handler
