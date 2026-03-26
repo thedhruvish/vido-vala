@@ -1,21 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { User, Bell, Shield, Keyboard, PlayCircle, Download, Link, CreditCard } from "lucide-react";
+import { User } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 
 export const Route = createFileRoute("/settings")({
   component: SettingsComponent,
 });
 
-const SETTINGS_MENU = [
-  { icon: User, label: "Account" },
-  { icon: Bell, label: "Notifications" },
-  { icon: PlayCircle, label: "Playback and performance" },
-  { icon: Download, label: "Downloads" },
-  { icon: Shield, label: "Privacy" },
-  { icon: Link, label: "Connected apps" },
-  { icon: CreditCard, label: "Billing and payments" },
-  { icon: Keyboard, label: "Advanced settings" },
-];
+const SETTINGS_MENU = [{ icon: User, label: "Account" }];
 
 function SettingsComponent() {
   return (

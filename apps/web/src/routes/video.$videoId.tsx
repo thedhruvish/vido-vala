@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal, UserPlus } from "lucide-react";
+import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 

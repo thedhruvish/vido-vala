@@ -7,23 +7,6 @@ export const Route = createFileRoute("/subscriptions")({
   component: SubscriptionsComponent,
 });
 
-const CATEGORIES = [
-  "All",
-  "Music",
-  "Gaming",
-  "React",
-  "Typescript",
-  "Tailwind CSS",
-  "Drizzle ORM",
-  "Next.js",
-  "TanStack Router",
-  "Programming",
-  "Live",
-  "Podcasts",
-  "Mixes",
-  "News",
-];
-
 const SUB_CHANNELS = [
   { id: "1", name: "VidoVala Dev", avatar: "https://github.com/shadcn.png" },
   { id: "2", name: "Code Master", avatar: "https://github.com/shadcn.png" },
@@ -74,21 +57,6 @@ const SUB_VIDEOS = [
 function SubscriptionsComponent() {
   return (
     <div className="px-4 pb-10">
-      <div className="sticky top-0 z-40 bg-background py-3">
-        <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-          {CATEGORIES.map((category) => (
-            <Button
-              key={category}
-              variant={category === "All" ? "default" : "secondary"}
-              size="sm"
-              className="whitespace-nowrap rounded-lg px-3 py-1 font-medium"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-      </div>
-
       <div className="pt-6">
         <div className="flex items-center gap-6 overflow-x-auto pb-6 mb-4 no-scrollbar px-4 border-b border-muted">
           {SUB_CHANNELS.map((channel) => (

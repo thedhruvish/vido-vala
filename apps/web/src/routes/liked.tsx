@@ -7,23 +7,6 @@ export const Route = createFileRoute("/liked")({
   component: LikedComponent,
 });
 
-const CATEGORIES = [
-  "All",
-  "Music",
-  "Gaming",
-  "React",
-  "Typescript",
-  "Tailwind CSS",
-  "Drizzle ORM",
-  "Next.js",
-  "TanStack Router",
-  "Programming",
-  "Live",
-  "Podcasts",
-  "Mixes",
-  "News",
-];
-
 const LIKED_VIDEOS = [
   {
     id: "3",
@@ -56,21 +39,6 @@ function LikedComponent() {
 
   return (
     <div className="px-4 pb-10">
-      <div className="sticky top-0 z-40 bg-background py-3">
-        <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar px-4">
-          {CATEGORIES.map((category) => (
-            <Button
-              key={category}
-              variant={category === "All" ? "default" : "secondary"}
-              size="sm"
-              className="whitespace-nowrap rounded-lg px-3 py-1 font-medium"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-      </div>
-
       <div className="max-w-6xl mx-auto pt-6">
         <div className="flex items-center gap-4 px-4 mb-8">
           <div className="h-16 w-16 flex items-center justify-center rounded-full bg-muted text-muted-foreground">

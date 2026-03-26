@@ -8,327 +8,308 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as WatchLaterRouteImport } from "./routes/watch-later";
-import { Route as UploadRouteImport } from "./routes/upload";
-import { Route as TrendingRouteImport } from "./routes/trending";
-import { Route as SubscriptionsRouteImport } from "./routes/subscriptions";
-import { Route as SettingsRouteImport } from "./routes/settings";
-import { Route as MyVideosRouteImport } from "./routes/my-videos";
-import { Route as LikedRouteImport } from "./routes/liked";
-import { Route as HistoryRouteImport } from "./routes/history";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as VideoVideoIdRouteImport } from "./routes/video.$videoId";
-import { Route as UserUsernameRouteImport } from "./routes/user.$username";
-import { Route as UserUsernameIndexRouteImport } from "./routes/user.$username.index";
-import { Route as UserUsernameVideosRouteImport } from "./routes/user.$username.videos";
-import { Route as UserUsernameAboutRouteImport } from "./routes/user.$username.about";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as WatchLaterRouteImport } from './routes/watch-later'
+import { Route as UploadRouteImport } from './routes/upload'
+import { Route as TrendingRouteImport } from './routes/trending'
+import { Route as SubscriptionsRouteImport } from './routes/subscriptions'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as LikedRouteImport } from './routes/liked'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as VideoVideoIdRouteImport } from './routes/video.$videoId'
+import { Route as UserUsernameRouteImport } from './routes/user.$username'
+import { Route as UserUsernameIndexRouteImport } from './routes/user.$username.index'
+import { Route as UserUsernameVideosRouteImport } from './routes/user.$username.videos'
+import { Route as UserUsernameAboutRouteImport } from './routes/user.$username.about'
 
 const WatchLaterRoute = WatchLaterRouteImport.update({
-  id: "/watch-later",
-  path: "/watch-later",
+  id: '/watch-later',
+  path: '/watch-later',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const UploadRoute = UploadRouteImport.update({
-  id: "/upload",
-  path: "/upload",
+  id: '/upload',
+  path: '/upload',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const TrendingRoute = TrendingRouteImport.update({
-  id: "/trending",
-  path: "/trending",
+  id: '/trending',
+  path: '/trending',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const SubscriptionsRoute = SubscriptionsRouteImport.update({
-  id: "/subscriptions",
-  path: "/subscriptions",
+  id: '/subscriptions',
+  path: '/subscriptions',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
-  id: "/settings",
-  path: "/settings",
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
-} as any);
-const MyVideosRoute = MyVideosRouteImport.update({
-  id: "/my-videos",
-  path: "/my-videos",
-  getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LikedRoute = LikedRouteImport.update({
-  id: "/liked",
-  path: "/liked",
+  id: '/liked',
+  path: '/liked',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const HistoryRoute = HistoryRouteImport.update({
-  id: "/history",
-  path: "/history",
+  id: '/history',
+  path: '/history',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const VideoVideoIdRoute = VideoVideoIdRouteImport.update({
-  id: "/video/$videoId",
-  path: "/video/$videoId",
+  id: '/video/$videoId',
+  path: '/video/$videoId',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const UserUsernameRoute = UserUsernameRouteImport.update({
-  id: "/user/$username",
-  path: "/user/$username",
+  id: '/user/$username',
+  path: '/user/$username',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const UserUsernameIndexRoute = UserUsernameIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => UserUsernameRoute,
-} as any);
+} as any)
 const UserUsernameVideosRoute = UserUsernameVideosRouteImport.update({
-  id: "/videos",
-  path: "/videos",
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => UserUsernameRoute,
-} as any);
+} as any)
 const UserUsernameAboutRoute = UserUsernameAboutRouteImport.update({
-  id: "/about",
-  path: "/about",
+  id: '/about',
+  path: '/about',
   getParentRoute: () => UserUsernameRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/history": typeof HistoryRoute;
-  "/liked": typeof LikedRoute;
-  "/my-videos": typeof MyVideosRoute;
-  "/settings": typeof SettingsRoute;
-  "/subscriptions": typeof SubscriptionsRoute;
-  "/trending": typeof TrendingRoute;
-  "/upload": typeof UploadRoute;
-  "/watch-later": typeof WatchLaterRoute;
-  "/user/$username": typeof UserUsernameRouteWithChildren;
-  "/video/$videoId": typeof VideoVideoIdRoute;
-  "/user/$username/about": typeof UserUsernameAboutRoute;
-  "/user/$username/videos": typeof UserUsernameVideosRoute;
-  "/user/$username/": typeof UserUsernameIndexRoute;
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/user/$username': typeof UserUsernameRouteWithChildren
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/user/$username/about': typeof UserUsernameAboutRoute
+  '/user/$username/videos': typeof UserUsernameVideosRoute
+  '/user/$username/': typeof UserUsernameIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/history": typeof HistoryRoute;
-  "/liked": typeof LikedRoute;
-  "/my-videos": typeof MyVideosRoute;
-  "/settings": typeof SettingsRoute;
-  "/subscriptions": typeof SubscriptionsRoute;
-  "/trending": typeof TrendingRoute;
-  "/upload": typeof UploadRoute;
-  "/watch-later": typeof WatchLaterRoute;
-  "/video/$videoId": typeof VideoVideoIdRoute;
-  "/user/$username/about": typeof UserUsernameAboutRoute;
-  "/user/$username/videos": typeof UserUsernameVideosRoute;
-  "/user/$username": typeof UserUsernameIndexRoute;
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/user/$username/about': typeof UserUsernameAboutRoute
+  '/user/$username/videos': typeof UserUsernameVideosRoute
+  '/user/$username': typeof UserUsernameIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/history": typeof HistoryRoute;
-  "/liked": typeof LikedRoute;
-  "/my-videos": typeof MyVideosRoute;
-  "/settings": typeof SettingsRoute;
-  "/subscriptions": typeof SubscriptionsRoute;
-  "/trending": typeof TrendingRoute;
-  "/upload": typeof UploadRoute;
-  "/watch-later": typeof WatchLaterRoute;
-  "/user/$username": typeof UserUsernameRouteWithChildren;
-  "/video/$videoId": typeof VideoVideoIdRoute;
-  "/user/$username/about": typeof UserUsernameAboutRoute;
-  "/user/$username/videos": typeof UserUsernameVideosRoute;
-  "/user/$username/": typeof UserUsernameIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
+  '/liked': typeof LikedRoute
+  '/settings': typeof SettingsRoute
+  '/subscriptions': typeof SubscriptionsRoute
+  '/trending': typeof TrendingRoute
+  '/upload': typeof UploadRoute
+  '/watch-later': typeof WatchLaterRoute
+  '/user/$username': typeof UserUsernameRouteWithChildren
+  '/video/$videoId': typeof VideoVideoIdRoute
+  '/user/$username/about': typeof UserUsernameAboutRoute
+  '/user/$username/videos': typeof UserUsernameVideosRoute
+  '/user/$username/': typeof UserUsernameIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/history"
-    | "/liked"
-    | "/my-videos"
-    | "/settings"
-    | "/subscriptions"
-    | "/trending"
-    | "/upload"
-    | "/watch-later"
-    | "/user/$username"
-    | "/video/$videoId"
-    | "/user/$username/about"
-    | "/user/$username/videos"
-    | "/user/$username/";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/user/$username'
+    | '/video/$videoId'
+    | '/user/$username/about'
+    | '/user/$username/videos'
+    | '/user/$username/'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/history"
-    | "/liked"
-    | "/my-videos"
-    | "/settings"
-    | "/subscriptions"
-    | "/trending"
-    | "/upload"
-    | "/watch-later"
-    | "/video/$videoId"
-    | "/user/$username/about"
-    | "/user/$username/videos"
-    | "/user/$username";
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/video/$videoId'
+    | '/user/$username/about'
+    | '/user/$username/videos'
+    | '/user/$username'
   id:
-    | "__root__"
-    | "/"
-    | "/history"
-    | "/liked"
-    | "/my-videos"
-    | "/settings"
-    | "/subscriptions"
-    | "/trending"
-    | "/upload"
-    | "/watch-later"
-    | "/user/$username"
-    | "/video/$videoId"
-    | "/user/$username/about"
-    | "/user/$username/videos"
-    | "/user/$username/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/history'
+    | '/liked'
+    | '/settings'
+    | '/subscriptions'
+    | '/trending'
+    | '/upload'
+    | '/watch-later'
+    | '/user/$username'
+    | '/video/$videoId'
+    | '/user/$username/about'
+    | '/user/$username/videos'
+    | '/user/$username/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  HistoryRoute: typeof HistoryRoute;
-  LikedRoute: typeof LikedRoute;
-  MyVideosRoute: typeof MyVideosRoute;
-  SettingsRoute: typeof SettingsRoute;
-  SubscriptionsRoute: typeof SubscriptionsRoute;
-  TrendingRoute: typeof TrendingRoute;
-  UploadRoute: typeof UploadRoute;
-  WatchLaterRoute: typeof WatchLaterRoute;
-  UserUsernameRoute: typeof UserUsernameRouteWithChildren;
-  VideoVideoIdRoute: typeof VideoVideoIdRoute;
+  IndexRoute: typeof IndexRoute
+  HistoryRoute: typeof HistoryRoute
+  LikedRoute: typeof LikedRoute
+  SettingsRoute: typeof SettingsRoute
+  SubscriptionsRoute: typeof SubscriptionsRoute
+  TrendingRoute: typeof TrendingRoute
+  UploadRoute: typeof UploadRoute
+  WatchLaterRoute: typeof WatchLaterRoute
+  UserUsernameRoute: typeof UserUsernameRouteWithChildren
+  VideoVideoIdRoute: typeof VideoVideoIdRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/watch-later": {
-      id: "/watch-later";
-      path: "/watch-later";
-      fullPath: "/watch-later";
-      preLoaderRoute: typeof WatchLaterRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/upload": {
-      id: "/upload";
-      path: "/upload";
-      fullPath: "/upload";
-      preLoaderRoute: typeof UploadRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/trending": {
-      id: "/trending";
-      path: "/trending";
-      fullPath: "/trending";
-      preLoaderRoute: typeof TrendingRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/subscriptions": {
-      id: "/subscriptions";
-      path: "/subscriptions";
-      fullPath: "/subscriptions";
-      preLoaderRoute: typeof SubscriptionsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/settings": {
-      id: "/settings";
-      path: "/settings";
-      fullPath: "/settings";
-      preLoaderRoute: typeof SettingsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/my-videos": {
-      id: "/my-videos";
-      path: "/my-videos";
-      fullPath: "/my-videos";
-      preLoaderRoute: typeof MyVideosRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/liked": {
-      id: "/liked";
-      path: "/liked";
-      fullPath: "/liked";
-      preLoaderRoute: typeof LikedRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/history": {
-      id: "/history";
-      path: "/history";
-      fullPath: "/history";
-      preLoaderRoute: typeof HistoryRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/video/$videoId": {
-      id: "/video/$videoId";
-      path: "/video/$videoId";
-      fullPath: "/video/$videoId";
-      preLoaderRoute: typeof VideoVideoIdRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/user/$username": {
-      id: "/user/$username";
-      path: "/user/$username";
-      fullPath: "/user/$username";
-      preLoaderRoute: typeof UserUsernameRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/user/$username/": {
-      id: "/user/$username/";
-      path: "/";
-      fullPath: "/user/$username/";
-      preLoaderRoute: typeof UserUsernameIndexRouteImport;
-      parentRoute: typeof UserUsernameRoute;
-    };
-    "/user/$username/videos": {
-      id: "/user/$username/videos";
-      path: "/videos";
-      fullPath: "/user/$username/videos";
-      preLoaderRoute: typeof UserUsernameVideosRouteImport;
-      parentRoute: typeof UserUsernameRoute;
-    };
-    "/user/$username/about": {
-      id: "/user/$username/about";
-      path: "/about";
-      fullPath: "/user/$username/about";
-      preLoaderRoute: typeof UserUsernameAboutRouteImport;
-      parentRoute: typeof UserUsernameRoute;
-    };
+    '/watch-later': {
+      id: '/watch-later'
+      path: '/watch-later'
+      fullPath: '/watch-later'
+      preLoaderRoute: typeof WatchLaterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trending': {
+      id: '/trending'
+      path: '/trending'
+      fullPath: '/trending'
+      preLoaderRoute: typeof TrendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscriptions': {
+      id: '/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof SubscriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/liked': {
+      id: '/liked'
+      path: '/liked'
+      fullPath: '/liked'
+      preLoaderRoute: typeof LikedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/video/$videoId': {
+      id: '/video/$videoId'
+      path: '/video/$videoId'
+      fullPath: '/video/$videoId'
+      preLoaderRoute: typeof VideoVideoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/$username': {
+      id: '/user/$username'
+      path: '/user/$username'
+      fullPath: '/user/$username'
+      preLoaderRoute: typeof UserUsernameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/$username/': {
+      id: '/user/$username/'
+      path: '/'
+      fullPath: '/user/$username/'
+      preLoaderRoute: typeof UserUsernameIndexRouteImport
+      parentRoute: typeof UserUsernameRoute
+    }
+    '/user/$username/videos': {
+      id: '/user/$username/videos'
+      path: '/videos'
+      fullPath: '/user/$username/videos'
+      preLoaderRoute: typeof UserUsernameVideosRouteImport
+      parentRoute: typeof UserUsernameRoute
+    }
+    '/user/$username/about': {
+      id: '/user/$username/about'
+      path: '/about'
+      fullPath: '/user/$username/about'
+      preLoaderRoute: typeof UserUsernameAboutRouteImport
+      parentRoute: typeof UserUsernameRoute
+    }
   }
 }
 
 interface UserUsernameRouteChildren {
-  UserUsernameAboutRoute: typeof UserUsernameAboutRoute;
-  UserUsernameVideosRoute: typeof UserUsernameVideosRoute;
-  UserUsernameIndexRoute: typeof UserUsernameIndexRoute;
+  UserUsernameAboutRoute: typeof UserUsernameAboutRoute
+  UserUsernameVideosRoute: typeof UserUsernameVideosRoute
+  UserUsernameIndexRoute: typeof UserUsernameIndexRoute
 }
 
 const UserUsernameRouteChildren: UserUsernameRouteChildren = {
   UserUsernameAboutRoute: UserUsernameAboutRoute,
   UserUsernameVideosRoute: UserUsernameVideosRoute,
   UserUsernameIndexRoute: UserUsernameIndexRoute,
-};
+}
 
-const UserUsernameRouteWithChildren = UserUsernameRoute._addFileChildren(UserUsernameRouteChildren);
+const UserUsernameRouteWithChildren = UserUsernameRoute._addFileChildren(
+  UserUsernameRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
   LikedRoute: LikedRoute,
-  MyVideosRoute: MyVideosRoute,
   SettingsRoute: SettingsRoute,
   SubscriptionsRoute: SubscriptionsRoute,
   TrendingRoute: TrendingRoute,
@@ -336,16 +317,16 @@ const rootRouteChildren: RootRouteChildren = {
   WatchLaterRoute: WatchLaterRoute,
   UserUsernameRoute: UserUsernameRouteWithChildren,
   VideoVideoIdRoute: VideoVideoIdRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

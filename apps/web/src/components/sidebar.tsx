@@ -1,15 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { Home, History, PlaySquare, Clock, ThumbsUp, Flame, Settings, Users } from "lucide-react";
+import { Home, History, Clock, ThumbsUp, Settings, Users } from "lucide-react";
 import { cn } from "@vido-vala/ui/lib/utils";
 import { useSidebar } from "../hooks/use-sidebar";
 
 const sidebarItems = [
-  { icon: Home, label: "Home", to: "/" },
-  { icon: Flame, label: "Trending", to: "/trending" },
+  { icon: Home, label: "Home", to: "/", isHeader: false },
   { icon: Users, label: "Subscriptions", to: "/subscriptions" },
   { separator: true },
   { icon: History, label: "History", to: "/history" },
-  { icon: PlaySquare, label: "Your videos", to: "/my-videos" },
   { icon: Clock, label: "Watch later", to: "/watch-later" },
   { icon: ThumbsUp, label: "Liked videos", to: "/liked" },
   { separator: true },
