@@ -1,6 +1,10 @@
 import { apiClient } from "../lib/api-client";
 import { z } from "zod";
-import { createVideoValidator, updateVideoValidator } from "@vido-vala/validators/videos";
+import {
+  createVideoValidator,
+  updateVideoValidator,
+  getUploadUrlValidator,
+} from "@vido-vala/validators";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -12,6 +16,10 @@ export const videosApi = {
   },
   getVideoById: async (id: string) => {
     const response = await apiClient.get(`/videos/${id}`);
+    return response.data;
+  },
+  getUploadUrl: async (data: z.infer<typeof getUploadUrlValidator>) => {
+    const response = await apiClient.post("/videos/get-upload-url", data);
     return response.data;
   },
   createVideo: async (data: z.infer<typeof createVideoValidator>) => {
@@ -43,6 +51,15 @@ export function useVideoByIdQuery(id: string) {
     queryFn: () => videosApi.getVideoById(id),
     select: (response) => response.data,
     enabled: !!id,
+  });
+}
+
+export function useGetUploadUrlMutation() {
+  return useMutation({
+    mutationFn: (data: z.infer<typeof getUploadUrlValidator>) => videosApi.getUploadUrl(data),
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || "Failed to get upload URL.");
+    },
   });
 }
 

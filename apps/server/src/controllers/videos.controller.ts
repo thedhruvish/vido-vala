@@ -8,6 +8,13 @@ export const createVideo: RequestHandler = async (req, res) => {
   sendResponse(res, 201, "Video created successfully", { video });
 };
 
+export const getUploadUrl: RequestHandler = async (_req, res) => {
+  // Mocking the signed URL for now
+  const uploadUrl = "https://mock-upload.com/video-file";
+  const fileId = `file-${Math.random().toString(36).substring(7)}`;
+  sendResponse(res, 200, "Upload URL generated successfully", { uploadUrl, fileId });
+};
+
 export const getAllVideos: RequestHandler = async (_req, res) => {
   const videos = await VideoService.getAllVideos();
   sendResponse(res, 200, "Videos retrieved successfully", { videos });
