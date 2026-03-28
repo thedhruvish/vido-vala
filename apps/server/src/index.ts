@@ -9,6 +9,7 @@ import commentsRoute from "./routes/comments.route";
 import usersRoute from "./routes/users.route";
 import videosRoute from "./routes/videos.route";
 import watchHistoriesRoute from "./routes/watch-histories.routes";
+import s3Route from "./routes/s3.route";
 import { sendError } from "./utils/response-handler";
 
 export const app: Express = express();
@@ -36,6 +37,7 @@ app.use("/api/videos", videosRoute);
 app.use("/api/comments", commentsRoute);
 app.use(authMiddleware);
 app.use("/api/users", usersRoute);
+app.use("/api/s3", s3Route);
 app.use("/api/watch-histories", watchHistoriesRoute);
 
 // Global Error Handler

@@ -40,6 +40,8 @@ function UploadComponent() {
         } = await getUploadUrlMutation.mutateAsync({
           size: selectedFile.size,
           contentType: selectedFile.type,
+          fileName: selectedFile.name,
+          type: "ROW_VIDEO",
         });
 
         setFileId(newFileId);

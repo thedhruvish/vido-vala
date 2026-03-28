@@ -14,7 +14,6 @@ interface ThumbnailUploadProps {
 }
 
 export function ThumbnailUpload({ value, onChange, error }: ThumbnailUploadProps) {
-  const [isUploading, setIsUploading] = useState(false);
   const getUploadUrlMutation = useGetUploadUrlMutation();
 
   const onDrop = useCallback(
@@ -25,10 +24,12 @@ export function ThumbnailUpload({ value, onChange, error }: ThumbnailUploadProps
       try {
         setIsThumbnailUploading(true);
         const {
-          data: { uploadUrl },
+          data: { uploadUrl, key },
         } = await getUploadUrlMutation.mutateAsync({
           size: thumbnailFile.size,
           contentType: thumbnailFile.type,
+          fileName: thumbnailFile.name,
+          type: "THUMBNAIL",
         });
 
         await axios.put(uploadUrl, thumbnailFile, {
@@ -38,7 +39,7 @@ export function ThumbnailUpload({ value, onChange, error }: ThumbnailUploadProps
         const mockUrl = URL.createObjectURL(thumbnailFile);
         onChange(mockUrl);
         toast.success("Thumbnail uploaded!");
-      } catch (err: any) {
+      } catch {
         toast.error("Failed to upload thumbnail.");
       } finally {
         setIsThumbnailUploading(false);

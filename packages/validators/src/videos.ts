@@ -1,8 +1,12 @@
 import { z } from "zod";
 
+export const UPLOAD_TYPE = ["ROW_VIDEO", "THUMBNAIL"] as const;
+
 export const getUploadUrlValidator = z.object({
   size: z.number().int().positive(),
   contentType: z.string(),
+  fileName: z.string(),
+  type: z.enum(UPLOAD_TYPE),
 });
 
 export const createVideoValidator = z.object({

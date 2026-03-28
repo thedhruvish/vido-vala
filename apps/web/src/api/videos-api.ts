@@ -19,7 +19,7 @@ export const videosApi = {
     return response.data;
   },
   getUploadUrl: async (data: z.infer<typeof getUploadUrlValidator>) => {
-    const response = await apiClient.post("/videos/get-upload-url", data);
+    const response = await apiClient.post("/s3", data);
     return response.data;
   },
   createVideo: async (data: z.infer<typeof createVideoValidator>) => {
