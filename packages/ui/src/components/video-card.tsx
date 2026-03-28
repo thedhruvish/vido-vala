@@ -21,7 +21,7 @@ export function VideoCard({
 
   ...props
 }: VideoCardProps) {
-  const videoDuration = video.seconds
+  const videoDuration = video?.seconds
     ? `${Math.floor(video.seconds / 60)}:${String(video.seconds % 60).padStart(2, "0")}`
     : "00:00";
 
@@ -51,7 +51,7 @@ export function VideoCard({
         <div className="flex gap-4">
           <div className="relative aspect-video w-64 shrink-0 overflow-hidden rounded-xl bg-muted">
             <img
-              src={video.thumbnail}
+              src={video?.thumbnail}
               alt={video.title}
               className="h-full w-full object-cover transition-transform group-hover:scale-105"
             />
@@ -99,7 +99,7 @@ export function VideoCard({
         <div className="flex flex-col gap-3">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-muted">
             <img
-              src={video.thumbnail}
+              src={video?.thumbnail}
               alt={video.title}
               className="h-full w-full object-cover transition-transform group-hover:scale-105"
             />

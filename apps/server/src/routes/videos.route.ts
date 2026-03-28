@@ -11,8 +11,8 @@ import { authMiddleware } from "@/middlwares/auth.middlware";
 const router: Router = Router();
 
 router.get("/", VideosController.getAllVideos);
-router.use(authMiddleware);
 router.get("/:id", validateParams(idParamValidator), VideosController.getVideoById);
+router.use(authMiddleware);
 router.post("/", validate(createVideoValidator), VideosController.createVideo);
 router.patch(
   "/:id",

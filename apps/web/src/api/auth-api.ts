@@ -10,6 +10,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import { useAuthStore } from "../hooks/use-auth-store";
 
 // API Functions
 export const authApi = {
@@ -43,11 +44,15 @@ export const authApi = {
 export function useLoginMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
     mutationFn: authApi.login,
     onSuccess: (response) => {
       toast.success(response.message || "Login successful!");
+      if (response.data) {
+        setUser(response.data);
+      }
       queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate({ to: "/" });
     },
@@ -62,11 +67,15 @@ export function useLoginMutation() {
 export function useRegisterMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
     mutationFn: authApi.register,
     onSuccess: (response) => {
       toast.success(response.message || "Account created successfully!");
+      if (response.data) {
+        setUser(response.data);
+      }
       queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate({ to: "/" });
     },
@@ -81,11 +90,15 @@ export function useRegisterMutation() {
 export function useGoogleLoginMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
     mutationFn: authApi.googleLogin,
     onSuccess: (response) => {
       toast.success(response.message || "Google Login successful!");
+      if (response.data) {
+        setUser(response.data);
+      }
       queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate({ to: "/" });
     },
@@ -111,11 +124,15 @@ export function useOtpResendMutation() {
 export function useOtpVerifyMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
     mutationFn: authApi.otpVerify,
     onSuccess: (response) => {
       toast.success(response.message || "OTP verified successfully!");
+      if (response.data) {
+        setUser(response.data);
+      }
       queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate({ to: "/" });
     },
@@ -128,11 +145,13 @@ export function useOtpVerifyMutation() {
 export function useLogoutMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
 
   return useMutation({
     mutationFn: authApi.logout,
     onSuccess: (response) => {
       toast.success(response.message || "Logged out successfully!");
+      logout();
       queryClient.clear();
       navigate({ to: "/login" });
     },

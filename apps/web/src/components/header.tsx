@@ -1,8 +1,18 @@
-import { Link } from "@tanstack/react-router";
-import { Search, Bell, Video, User, Menu, Mic } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import {
+  Search,
+  Bell,
+  Video,
+  User,
+  Menu,
+  Mic,
+  LogOut,
+  Settings as SettingsIcon,
+} from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 import { Input } from "@vido-vala/ui/components/input";
 import { useSidebar } from "../hooks/use-sidebar";
+import { useAuthStore } from "../hooks/use-auth-store";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +20,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuGroup,
+  DropdownMenuSeparator,
 } from "@vido-vala/ui/components/dropdown-menu";
 
 const notifications = [
@@ -29,6 +40,16 @@ const notifications = [
 
 export default function Header() {
   const { toggle } = useSidebar();
+  const { isAuthenticated, user, openAuthModal, logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleProtectedAction = (action: () => void) => {
+    if (isAuthenticated) {
+      action();
+    } else {
+      openAuthModal();
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 flex h-14 w-full shrink-0 items-center justify-between border-b bg-background px-4">
@@ -74,28 +95,31 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
-        <Link to="/upload">
-          <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full">
-            <Video className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hidden sm:flex rounded-full"
+          onClick={() => handleProtectedAction(() => navigate({ to: "/upload" }))}
+        >
+          <Video className="h-5 w-5" />
+        </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full">
-                <Bell className="h-5 w-5" />
-              </Button>
-            }
-          >
-            Open
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={"w-75"}>
-            <DropdownMenuGroup>
-              <DropdownMenuLabel className="font-bold p-3 text-base">
-                Notifications
-              </DropdownMenuLabel>
-              <div className="max-h-100  overflow-y-auto no-scrollbar">
+        {isAuthenticated ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button variant="ghost" size="icon" className="hidden sm:flex rounded-full">
+                  <Bell className="h-5 w-5" />
+                </Button>
+              }
+            >
+              Open
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className={"w-75"}>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="font-bold p-3 text-base">
+                  Notifications
+                </DropdownMenuLabel>
                 {notifications.map((n) => (
                   <DropdownMenuItem
                     key={n.id}
@@ -105,16 +129,90 @@ export default function Header() {
                     <span className="text-xs text-muted-foreground">{n.time}</span>
                   </DropdownMenuItem>
                 ))}
-              </div>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:flex rounded-full"
+            onClick={openAuthModal}
+          >
+            <Bell className="h-5 w-5" />
+          </Button>
+        )}
 
-        <Link to="/settings">
-          <Button variant="ghost" size="icon" className="rounded-full overflow-hidden ml-1">
+        {isAuthenticated && user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full overflow-hidden ml-1 p-0"
+                >
+                  {user.picture ? (
+                    <img
+                      src={user.picture}
+                      alt={user.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <User className="h-5 w-5" />
+                  )}
+                </Button>
+              }
+            >
+              Open Profile Menu
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-60">
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="flex items-center gap-3 p-3">
+                  <div className="h-10 w-10 overflow-hidden rounded-full shrink-0">
+                    {user.picture ? (
+                      <img
+                        src={user.picture}
+                        alt={user.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-muted">
+                        <User className="h-5 w-5 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col truncate">
+                    <span className="font-semibold truncate">{user.name}</span>
+                    <span className="text-xs text-muted-foreground truncate">@{user.userName}</span>
+                  </div>
+                </DropdownMenuLabel>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => navigate({ to: `/user/${user.userName}` })}>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Your channel</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/settings" })}>
+                  <SettingsIcon className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => logout()} className="text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button variant="ghost" size="icon" className="rounded-full ml-1" onClick={openAuthModal}>
             <User className="h-5 w-5" />
           </Button>
-        </Link>
+        )}
       </div>
     </header>
   );

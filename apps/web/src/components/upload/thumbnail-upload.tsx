@@ -15,6 +15,7 @@ interface ThumbnailUploadProps {
 
 export function ThumbnailUpload({ value, onChange, error }: ThumbnailUploadProps) {
   const getUploadUrlMutation = useGetUploadUrlMutation();
+  const [isThumbnailUploading, setIsThumbnailUploading] = useState(false);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -47,8 +48,6 @@ export function ThumbnailUpload({ value, onChange, error }: ThumbnailUploadProps
     },
     [getUploadUrlMutation, onChange],
   );
-
-  const [isThumbnailUploading, setIsThumbnailUploading] = useState(false);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

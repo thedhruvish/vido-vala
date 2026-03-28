@@ -4,6 +4,8 @@ import { Toaster } from "@vido-vala/ui/components/sonner";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { SidebarProvider } from "../hooks/use-sidebar";
+import { AuthSyncer } from "../components/auth-syncer";
+import { AuthModal } from "../components/auth-modal";
 
 import appCss from "../index.css?url";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,8 +42,9 @@ const queryClient = new QueryClient();
 function RootDocument() {
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-      <SidebarProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <SidebarProvider>
+          <AuthSyncer />
           <html lang="en" className="dark">
             <head>
               <HeadContent />
@@ -50,13 +53,14 @@ function RootDocument() {
               <div className="flex h-svh flex-col">
                 <Outlet />
               </div>
+              <AuthModal />
               <Toaster richColors />
               <TanStackRouterDevtools position="bottom-left" />
               <Scripts />
             </body>
           </html>
-        </QueryClientProvider>
-      </SidebarProvider>
+        </SidebarProvider>
+      </QueryClientProvider>
     </GoogleOAuthProvider>
   );
 }

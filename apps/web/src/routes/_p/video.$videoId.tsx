@@ -1,11 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from "lucide-react";
+import {
+  ThumbsUp,
+  ThumbsDown,
+  Share2,
+  Download,
+  MoreHorizontal,
+  User as UserIcon,
+} from "lucide-react";
 import { Button } from "@vido-vala/ui/components/button";
 import { VideoCard } from "@vido-vala/ui/components/video-card";
 import { useVideoByIdQuery, useVideosQuery } from "@/api/videos-api";
 import { useCommentsByVideoIdQuery, useAddCommentMutation } from "@/api/comments-api";
 import Loader from "@/components/loader";
 import { useState } from "react";
+import { useAuthStore } from "@/hooks/use-auth-store";
 
 export const Route = createFileRoute("/_p/video/$videoId")({
   component: VideoComponent,
@@ -22,6 +30,16 @@ function VideoComponent() {
   const { data: recommendedVideosData } = useVideosQuery();
   const addCommentMutation = useAddCommentMutation();
   const [commentText, setCommentText] = useState("");
+
+  const { isAuthenticated, user, openAuthModal } = useAuthStore();
+
+  const handleProtectedAction = (action: () => void) => {
+    if (isAuthenticated) {
+      action();
+    } else {
+      openAuthModal();
+    }
+  };
 
   if (isVideoPending) {
     return (
@@ -41,16 +59,18 @@ function VideoComponent() {
   }
 
   const handleCommentSubmit = () => {
-    if (!commentText.trim()) return;
-    addCommentMutation.mutate(
-      {
-        videoId: Number(videoId),
-        content: commentText,
-      },
-      {
-        onSuccess: () => setCommentText(""),
-      },
-    );
+    handleProtectedAction(() => {
+      if (!commentText.trim()) return;
+      addCommentMutation.mutate(
+        {
+          videoId: Number(videoId),
+          content: commentText,
+        },
+        {
+          onSuccess: () => setCommentText(""),
+        },
+      );
+    });
   };
 
   return (
@@ -90,18 +110,33 @@ function VideoComponent() {
                 </span>
                 <span className="text-xs text-muted-foreground">1.2M subscribers</span>
               </div>
-              <Button variant="default" size="sm" className="ml-2 rounded-full px-4">
+              <Button
+                variant="default"
+                size="sm"
+                className="ml-2 rounded-full px-4"
+                onClick={() => handleProtectedAction(() => {})}
+              >
                 Subscribe
               </Button>
             </div>
 
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
               <div className="flex items-center bg-muted rounded-full">
-                <Button variant="ghost" size="sm" className="rounded-l-full gap-2 px-3 border-r">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-l-full gap-2 px-3 border-r"
+                  onClick={() => handleProtectedAction(() => {})}
+                >
                   <ThumbsUp className="h-4 w-4" />
                   <span>{videoData.video.like}</span>
                 </Button>
-                <Button variant="ghost" size="sm" className="rounded-r-full px-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-r-full px-3"
+                  onClick={() => handleProtectedAction(() => {})}
+                >
                   <ThumbsDown className="h-4 w-4" />
                 </Button>
               </div>
@@ -109,7 +144,12 @@ function VideoComponent() {
                 <Share2 className="h-4 w-4" />
                 <span>Share</span>
               </Button>
-              <Button variant="secondary" size="sm" className="rounded-full gap-2 hidden sm:flex">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="rounded-full gap-2 hidden sm:flex"
+                onClick={() => handleProtectedAction(() => {})}
+              >
                 <Download className="h-4 w-4" />
                 <span>Download</span>
               </Button>
@@ -135,11 +175,13 @@ function VideoComponent() {
           <h3 className="text-lg font-bold">{commentData?.comments?.length || 0} Comments</h3>
           <div className="mt-4 flex gap-4">
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
-              <img
-                src="https://github.com/shadcn.png"
-                alt="User"
-                className="h-full w-full object-cover"
-              />
+              {isAuthenticated && user?.picture ? (
+                <img src={user.picture} alt={user.name} className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-muted">
+                  <UserIcon className="h-5 w-5 text-muted-foreground" />
+                </div>
+              )}
             </div>
             <div className="flex-1 flex flex-col gap-2">
               <input
@@ -147,6 +189,7 @@ function VideoComponent() {
                 className="w-full bg-transparent border-b border-muted py-1 focus:outline-none focus:border-foreground"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
+                onClick={() => handleProtectedAction(() => {})}
               />
               <div className="flex justify-end gap-2">
                 <Button variant="ghost" size="sm" onClick={() => setCommentText("")}>
@@ -186,12 +229,23 @@ function VideoComponent() {
                     </div>
                     <p className="text-sm">{comment.content}</p>
                     <div className="flex items-center gap-4 mt-1">
-                      <div className="flex items-center gap-1">
+                      <div
+                        className="flex items-center gap-1 cursor-pointer"
+                        onClick={() => handleProtectedAction(() => {})}
+                      >
                         <ThumbsUp className="h-3.5 w-3.5" />
                         <span className="text-xs">0</span>
                       </div>
-                      <ThumbsDown className="h-3.5 w-3.5" />
-                      <span className="text-xs font-bold cursor-pointer">Reply</span>
+                      <ThumbsDown
+                        className="h-3.5 w-3.5 cursor-pointer"
+                        onClick={() => handleProtectedAction(() => {})}
+                      />
+                      <span
+                        className="text-xs font-bold cursor-pointer"
+                        onClick={() => handleProtectedAction(() => {})}
+                      >
+                        Reply
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -202,10 +256,11 @@ function VideoComponent() {
       </div>
 
       <div className="w-full lg:w-96 flex flex-col gap-4 overflow-y-auto">
-        {recommendedVideosData.videos
+        {recommendedVideosData?.videos
           ?.filter((v: any) => String(v.id) !== videoId)
           .map((v: any) => (
             <VideoCard
+              video={v}
               key={v.id}
               id={String(v.id)}
               thumbnail={

@@ -1,25 +1,37 @@
-import { Link } from "@tanstack/react-router";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 import { Home, History, Clock, ThumbsUp, Settings, Users } from "lucide-react";
 import { cn } from "@vido-vala/ui/lib/utils";
 import { useSidebar } from "../hooks/use-sidebar";
+import { useAuthStore } from "../hooks/use-auth-store";
 
 const sidebarItems = [
-  { icon: Home, label: "Home", to: "/", isHeader: false },
-  { icon: Users, label: "Subscriptions", to: "/subscriptions" },
+  { icon: Home, label: "Home", to: "/", isHeader: false, public: true },
+  { icon: Users, label: "Subscriptions", to: "/subscriptions", public: false },
   { separator: true },
-  { icon: History, label: "History", to: "/history" },
-  { icon: Clock, label: "Watch later", to: "/watch-later" },
-  { icon: ThumbsUp, label: "Liked videos", to: "/liked" },
+  { icon: History, label: "History", to: "/history", public: false },
+  { icon: Clock, label: "Watch later", to: "/watch-later", public: false },
+  { icon: ThumbsUp, label: "Liked videos", to: "/liked", public: false },
   { separator: true },
-  { icon: Settings, label: "Settings", to: "/settings" },
+  { icon: Settings, label: "Settings", to: "/settings", public: false },
 ];
 
 export function Sidebar({ className }: { className?: string }) {
   const { isOpen } = useSidebar();
+  const { isAuthenticated, openAuthModal } = useAuthStore();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (!isOpen) {
     return null;
   }
+
+  const handleNavigation = (to: string, isPublic: boolean) => {
+    if (isPublic || isAuthenticated) {
+      navigate({ to });
+    } else {
+      openAuthModal();
+    }
+  };
 
   return (
     <aside
@@ -40,16 +52,20 @@ export function Sidebar({ className }: { className?: string }) {
           );
         }
         const Icon = item.icon!;
+        const isActive = location.pathname === item.to;
+
         return (
-          <Link
+          <button
             key={item.label}
-            to={item.to!}
-            className="flex items-center gap-4 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted active:bg-accent"
-            activeProps={{ className: "bg-accent" }}
+            onClick={() => handleNavigation(item.to!, !!item.public)}
+            className={cn(
+              "flex w-full items-center gap-4 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted active:bg-accent text-left transition-colors",
+              isActive && "bg-accent",
+            )}
           >
             <Icon className="h-5 w-5" />
             <span className="truncate">{item.label}</span>
-          </Link>
+          </button>
         );
       })}
     </aside>
